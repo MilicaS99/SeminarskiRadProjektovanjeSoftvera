@@ -18,7 +18,7 @@ namespace SystemOperations
 
         protected override void Execute()
         {
-            broker.SacuvajUcenika(učenik);
+            int ucenikid = repository.DodajSaVracanjem(učenik);
         }
     }
 }

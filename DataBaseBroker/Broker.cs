@@ -21,6 +21,131 @@ namespace DataBaseBroker
 
         }
 
+        public void OpenConnection()
+        {
+            connection.Open();
+        }
+
+        public void CloseConnection()
+        {
+            if (connection != null && connection.State != ConnectionState.Closed)
+                connection.Close();
+        }
+
+
+        public void BeginTransaction()
+        {
+            transaction = connection.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            transaction.Commit();
+        }
+
+        public void Rollback()
+        {
+            transaction.Rollback();
+        }
+
+        public SqlCommand CreateCommand()
+        {
+            SqlCommand command = new SqlCommand("", connection, transaction);
+            return command;
+        }
+
+        #region Broker staro
+        /*
+        public Korisnik Login(Korisnik k)
+        {
+
+
+            Korisnik korisnik = new Korisnik();
+            SqlCommand command = new SqlCommand("", connection);
+            command.CommandText = $"select * from Korisnik  where KorisnickoIme='{k.KorisnickoIme}' and Lozinka='{k.Lozinka}'";
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+
+                    korisnik.Ime = reader.GetString(1);
+                    korisnik.Prezime = reader.GetString(2);
+                    korisnik.KorisnickoIme = reader.GetString(3);
+                    korisnik.Lozinka = reader.GetString(4);
+                    
+
+
+                }
+            }
+         
+
+
+            return korisnik;
+        }
+
+      
+        public List<Vaspitač> vratiVaspitačeNaProgramu(Program program)
+        {
+                 List<Vaspitač> vaspitaci = new List<Vaspitač>();
+            SqlCommand command = new SqlCommand("", connection);
+            command.CommandText = $"select * from Vaspitač  where ProgramID = {program.ProgramID}";
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Vaspitač v = new Vaspitač();
+                    v.VaspitačID = reader.GetInt32(0);
+                    v.Ime = reader.GetString(1);
+                    v.Prezime = reader.GetString(2);
+                    v.Pol = reader.GetString(3);
+                    v.Kontakt = reader.GetString(4);
+                    v.Program = new Program();
+                    v.Program.ProgramID = reader.GetInt32(5);
+                    
+                    vaspitaci.Add(v);
+                }
+            }
+            return vaspitaci;
+        }
+
+        public void ObisiUcenikaIzGrupe(Pohadjanje pohadjanje)
+        {
+            SqlCommand command = new SqlCommand("", connection);
+            command.CommandText = $"delete from Pohadjanje  where (UčenikID={pohadjanje.Učenik.UčenikID} and GrupaID={pohadjanje.Grupa.GrupaID}) ";
+            command.ExecuteNonQuery();
+        }
+
+        public Grupa UčitajGrupe(Grupa grupa)
+        {
+
+            Grupa ucitanagrupa = new Grupa();
+            SqlCommand command = new SqlCommand("", connection);
+            command.CommandText = $"select * from Grupa g join Program p  on p.ProgramID=g.ProgramID join Vaspitač v on v.VaspitačID=g.VaspitačID where g.GrupaID={grupa.GrupaID}";
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                     
+                    ucitanagrupa.GrupaID = reader.GetInt32(0);
+                    ucitanagrupa.NazivGrupe = reader.GetString(1);
+                    ucitanagrupa.Uzrast = (Uzrast)reader.GetInt32(2);
+                    ucitanagrupa.Program = new Program();
+                    ucitanagrupa.Program.ProgramID = reader.GetInt32(3);
+                    ucitanagrupa.Program.NazivPrograma = reader.GetString(6);
+                    ucitanagrupa.Program.Opis = reader.GetString(7);
+                    ucitanagrupa.Vaspitač = new Vaspitač();
+                    ucitanagrupa.Vaspitač.VaspitačID = reader.GetInt32(4);
+                    ucitanagrupa.Vaspitač.Ime = reader.GetString(9);
+                    ucitanagrupa.Vaspitač.Prezime = reader.GetString(10);
+                    ucitanagrupa.Vaspitač.Pol = reader.GetString(11);
+                    ucitanagrupa.Vaspitač.Kontakt = reader.GetString(12);
+                  
+                }
+            }
+            return ucitanagrupa;
+        }
+
+      
         public int VratiIdPoslednjeUneteGrupe()
         {
             SqlCommand command = new SqlCommand();
@@ -30,6 +155,7 @@ namespace DataBaseBroker
             return trenutnoNajveciId;
         }
 
+        
         public void ZapamtiPohadjanje(Pohadjanje pohadjanje)
         {
             SqlCommand command = new SqlCommand("", connection);
@@ -111,50 +237,47 @@ namespace DataBaseBroker
             }
             return grupe;
         }
-
+        /*
         public void obriisiUcenika(Učenik u)
         {
             SqlCommand command = new SqlCommand("", connection);
             command.CommandText = $"delete Učenik from Učenik u where u.Ime = '{u.Ime}' and u.Prezime = '{u.Prezime}' ";
             command.ExecuteNonQuery();
-        }
+        }*/
+        /*
 
         public void ZapamtiNovuGrupu(Grupa grupa)
         {
             SqlCommand command = new SqlCommand("", connection);
-            command.CommandText = $"Update Grupa set Uzrast = '{(int)grupa.Uzrast}', VaspitačID = '{grupa.Vaspitač.VaspitačID}'  where GrupaID =  {grupa.GrupaID }";
+            command.CommandText = $"Update Grupa set NazivGrupe='{grupa.NazivGrupe}', Uzrast = '{(int)grupa.Uzrast}',ProgramID='{grupa.Program.ProgramID}' ,VaspitačID = '{grupa.Vaspitač.VaspitačID}'  where GrupaID = {grupa.GrupaID }";
             command.ExecuteNonQuery();
         }
 
-        public List<Grupa> NadjiGrupe(string kriterijum)
+        public List<Pohadjanje> NadjiGrupe(string kriterijum)
         {
-            List<Grupa> grupe = new List<Grupa>();
+            List<Pohadjanje> pohadjanja = new List<Pohadjanje>();
             SqlCommand command = new SqlCommand("", connection);
-            command.CommandText = $"select * from Grupa g join Program p  on p.ProgramID=g.ProgramID join Vaspitač v on v.VaspitačID=g.VaspitačID {kriterijum}";
+            command.CommandText = $"select * from Pohadjanje p join Učenik u on u.UčenikID=p.UčenikID join Grupa g on g.GrupaID=p.GrupaID  {kriterijum}";
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    Grupa g = new Grupa();
-                    g.GrupaID = reader.GetInt32(0);
-                    g.NazivGrupe = reader.GetString(1);
-                    g.Uzrast = (Uzrast)reader.GetInt32(2);
-                    g.Program = new Program();
-                    g.Program.ProgramID = reader.GetInt32(3);
-                    g.Program.NazivPrograma = reader.GetString(6);
-                    g.Program.Opis = reader.GetString(7);
-                    g.Vaspitač = new Vaspitač();
-                    g.Vaspitač.VaspitačID = reader.GetInt32(4);
-                    g.Vaspitač.Ime = reader.GetString(9);
-                    g.Vaspitač.Prezime = reader.GetString(10);
-                    g.Vaspitač.Pol = reader.GetString(11);
-                    g.Vaspitač.Kontakt = reader.GetString(12);
-                    grupe.Add(g);
+                    Pohadjanje p = new Pohadjanje();
+                    p.Učenik = new Učenik();
+                    p.Učenik.UčenikID = reader.GetInt32(0);
+                    p.Učenik.Ime = reader.GetString(5);
+                    p.Učenik.Prezime = reader.GetString(6);
+                    p.Grupa = new Grupa();
+                    p.Grupa.GrupaID = reader.GetInt32(1);
+                    p.Grupa.NazivGrupe = reader.GetString(11);
+                    p.DatumOd = reader.GetDateTime(2);
+                    p.DatumDo = reader.GetDateTime(3);
+                    pohadjanja.Add(p);
                 }
             }
-            if (grupe.Count > 0)
+            if (pohadjanja.Count > 0)
             {
-                return grupe;
+                return pohadjanja;
             }
             else
             {
@@ -362,33 +485,8 @@ namespace DataBaseBroker
                 }
             }
             return programi;
-        }
+        }*/
+        #endregion
 
-        public void OpenConnection()
-        {
-            connection.Open();
-        }
-
-        public void CloseConnection()
-        {
-            if (connection != null && connection.State != ConnectionState.Closed)
-                connection.Close();
-        }
-
-
-        public void BeginTransaction()
-        {
-            transaction = connection.BeginTransaction();
-        }
-
-        public void Commit()
-        {
-            transaction.Commit();
-        }
-
-        public void Rollback()
-        {
-            transaction.Rollback();
-        }
     }
 }

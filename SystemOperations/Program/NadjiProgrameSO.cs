@@ -17,7 +17,8 @@ namespace SystemOperations
         }
         protected override void Execute()
         {
-            Rezultat = broker.NadjiPrograme(kriterijum);
+            //Rezultat = broker.NadjiPrograme(kriterijum);
+            Rezultat = repository.Pronadji(new Program(), kriterijum).OfType<Program>().ToList();
         }
     }
 }

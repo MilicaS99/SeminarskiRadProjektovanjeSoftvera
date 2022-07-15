@@ -47,6 +47,7 @@ namespace Client
             this.btnPretrazi = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.DodavanjeUčenika = new System.Windows.Forms.GroupBox();
+            this.btnPrikaziDetalje = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.DodavanjeUčenika.SuspendLayout();
             this.SuspendLayout();
@@ -175,7 +176,7 @@ namespace Client
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.RoyalBlue;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(594, 43);
+            this.label6.Location = new System.Drawing.Point(644, 43);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(97, 13);
             this.label6.TabIndex = 11;
@@ -185,7 +186,7 @@ namespace Client
             // 
             this.txtPretraga.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPretraga.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.txtPretraga.Location = new System.Drawing.Point(718, 36);
+            this.txtPretraga.Location = new System.Drawing.Point(768, 36);
             this.txtPretraga.Name = "txtPretraga";
             this.txtPretraga.Size = new System.Drawing.Size(147, 20);
             this.txtPretraga.TabIndex = 12;
@@ -195,7 +196,7 @@ namespace Client
             this.btnPretrazi.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnPretrazi.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnPretrazi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPretrazi.Location = new System.Drawing.Point(915, 23);
+            this.btnPretrazi.Location = new System.Drawing.Point(937, 29);
             this.btnPretrazi.Name = "btnPretrazi";
             this.btnPretrazi.Size = new System.Drawing.Size(108, 33);
             this.btnPretrazi.TabIndex = 13;
@@ -207,7 +208,7 @@ namespace Client
             // 
             this.dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(571, 92);
+            this.dataGridView1.Location = new System.Drawing.Point(621, 92);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(546, 139);
             this.dataGridView1.TabIndex = 14;
@@ -233,12 +234,26 @@ namespace Client
             this.DodavanjeUčenika.TabStop = false;
             this.DodavanjeUčenika.Text = "DodavanjeUčenika";
             // 
+            // btnPrikaziDetalje
+            // 
+            this.btnPrikaziDetalje.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnPrikaziDetalje.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnPrikaziDetalje.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrikaziDetalje.Location = new System.Drawing.Point(1059, 29);
+            this.btnPrikaziDetalje.Name = "btnPrikaziDetalje";
+            this.btnPrikaziDetalje.Size = new System.Drawing.Size(108, 33);
+            this.btnPrikaziDetalje.TabIndex = 16;
+            this.btnPrikaziDetalje.Text = "PrikažiDetalje";
+            this.btnPrikaziDetalje.UseVisualStyleBackColor = false;
+            this.btnPrikaziDetalje.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormaUčenik
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ClientSize = new System.Drawing.Size(1129, 331);
+            this.ClientSize = new System.Drawing.Size(1228, 331);
+            this.Controls.Add(this.btnPrikaziDetalje);
             this.Controls.Add(this.DodavanjeUčenika);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnPretrazi);
@@ -272,6 +287,7 @@ namespace Client
         private System.Windows.Forms.Button btnPretrazi;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox DodavanjeUčenika;
+        private Button btnPrikaziDetalje;
 
         public Label Label1 { get => label1; set => label1 = value; }
         public Label Label2 { get => label2; set => label2 = value; }

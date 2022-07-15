@@ -14,16 +14,18 @@ namespace Client
         {
             InitializeComponent();
             Inicijalizuj();
-           /* DialogResult = DialogResult.OK;
-            listaprograma = new BindingList<Domain.Program>(Communication.Instance.VratiListuPrograma());
-            dataGridView1.DataSource = listaprograma;*/
+            #region inicijalizacija
+            /* DialogResult = DialogResult.OK;
+             listaprograma = new BindingList<Domain.Program>(Communication.Instance.VratiListuPrograma());
+             dataGridView1.DataSource = listaprograma;*/
 
-           // Timer t = new Timer();
+            // Timer t = new Timer();
             //t.Interval = 5000;
             //t.Tick += Osvezi;
             //t.Start();
-           
-           
+            #endregion
+
+
         }
 
         private void Inicijalizuj()
@@ -31,22 +33,7 @@ namespace Client
             controller.Inicijalizuj(this);
         }
 
-        //Osvezavanje al to ti je nebitno sada
-        /* private void Osvezi(object sender, EventArgs e)
-         {
-             string kriterijum = "";
-             if (txtKriterijum.Text!=null)
-             {
-                 string pokupljenkriterijum = txtKriterijum.Text;
-                 kriterijum = $"where Naziv='{pokupljenkriterijum}'";
-                 dataGridView1.DataSource = Communication.Instance.PretragaPrograma(kriterijum);
-
-
-             }
-
-
-         }*/
-
+   
 
 
 
@@ -54,46 +41,57 @@ namespace Client
             {
 
             controller.PretraziProgram(this);
-               /* string kriterijum = "";
-                if (txtKriterijum.Text != null)
-                {
-                    string pokupljenkriterijum = txtKriterijum.Text;
-                    kriterijum = $"where Naziv='{pokupljenkriterijum}'";
-                    dataGridView1.DataSource = Communication.Instance.PretragaPrograma(kriterijum);
-                txtKriterijum.Text = null;
+            #region pretrazi
+            /* string kriterijum = "";
+             if (txtKriterijum.Text != null)
+             {
+                 string pokupljenkriterijum = txtKriterijum.Text;
+                 kriterijum = $"where Naziv='{pokupljenkriterijum}'";
+                 dataGridView1.DataSource = Communication.Instance.PretragaPrograma(kriterijum);
+             txtKriterijum.Text = null;
 
 
-                }*/
-            }
+             }*/
+            #endregion
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
             controller.SacuvajProgram(this);
-           /* if (!Validacija())
-            {
-                return;
-            }
-            Domain.Program program = new Domain.Program();
-            program.NazivPrograma = txtNaziv.Text;
-            program.Opis = richTextBoxOpis.Text;
-            Communication.Instance.SacuvajProgram(program);
-           /* richTextBoxOpis.Text = null;
-            txtNaziv.Text = null;*/
+            #region sacuvaj
+            /* if (!Validacija())
+             {
+                 return;
+             }
+             Domain.Program program = new Domain.Program();
+             program.NazivPrograma = txtNaziv.Text;
+             program.Opis = richTextBoxOpis.Text;
+             Communication.Instance.SacuvajProgram(program);
+            /* richTextBoxOpis.Text = null;
+             txtNaziv.Text = null;*/
+            #endregion
         }
-       /* private bool Validacija()
+        #region validacija
+        /* private bool Validacija()
+         {
+             bool uspesno = true;
+             if (string.IsNullOrEmpty(txtNaziv.Text ))
+             {
+                 MessageBox.Show("Niste uneli naziv programa!");
+                 uspesno = false;
+             }
+             if (string.IsNullOrEmpty(richTextBoxOpis.Text))
+             {
+                 MessageBox.Show("Niste uneli opis programa!");
+                 uspesno = false;
+             }
+             return uspesno;
+         }*/
+        #endregion
+
+        private void btnPrikaziProgram_Click(object sender, EventArgs e)
         {
-            bool uspesno = true;
-            if (string.IsNullOrEmpty(txtNaziv.Text ))
-            {
-                MessageBox.Show("Niste uneli naziv programa!");
-                uspesno = false;
-            }
-            if (string.IsNullOrEmpty(richTextBoxOpis.Text))
-            {
-                MessageBox.Show("Niste uneli opis programa!");
-                uspesno = false;
-            }
-            return uspesno;
-        }*/
+            controller.prikaziProgram(this);
+        }
     }
 }

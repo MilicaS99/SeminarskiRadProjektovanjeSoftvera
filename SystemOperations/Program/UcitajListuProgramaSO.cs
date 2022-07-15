@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-    public class VratiListuProgramaSO : SystemOperationBase
+    public class UcitajListuProgramaSO : SystemOperationBase
     {
         public List<Program> Rezultat { get; set; }
         protected override void Execute()
         {
-            Rezultat = broker.VratiListuPrograma();
+            //Rezultat = broker.VratiListuPrograma();
+            Rezultat = repository.VratiSve(new Program()).OfType<Program>().ToList();
         }
     }
 }

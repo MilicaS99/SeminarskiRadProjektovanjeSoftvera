@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-    public class NadjiVaspitačeSO:SystemOperationBase
+    public class PretraziUcenikeSO : SystemOperationBase
     {
         private readonly string kriterijum;
-        
-        public List<Vaspitač> Rezultat { get; set; }
-        public NadjiVaspitačeSO(string kriterijum)
+        public List<Učenik> Rezultat { get; set; }
+        public PretraziUcenikeSO(string kriterijum)
         {
             this.kriterijum = kriterijum;
         }
-
         protected override void Execute()
         {
-            Rezultat = broker.VratiVaspitačePoKriterijumu(kriterijum);
+            Rezultat = repository.Pronadji(new Učenik(), kriterijum).OfType<Učenik>().ToList();
         }
     }
 }

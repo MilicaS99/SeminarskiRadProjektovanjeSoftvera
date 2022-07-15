@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-    public class ZapamtiVaspitačaSO : SystemOperationBase
+    public class ZapamtiIzmenjenogVaspitačaSO : SystemOperationBase
     {
-        private readonly Vaspitač vaspitač;
-        public ZapamtiVaspitačaSO(Vaspitač vaspitač)
+        private Vaspitač vaspitač;
+
+        public ZapamtiIzmenjenogVaspitačaSO(Vaspitač vaspitač)
         {
             this.vaspitač = vaspitač;
         }
-      
+
         protected override void Execute()
         {
-            broker.SacuvajVaspitaca(vaspitač);
+            //broker.SacuvajIzmenjenogVaspitaca(vaspitač);
+            repository.IzmeniOdredjene(vaspitač);
         }
     }
 }

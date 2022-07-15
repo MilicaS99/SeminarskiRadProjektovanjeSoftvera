@@ -1,4 +1,6 @@
 ﻿using DataBaseBroker;
+using Domain;
+using Repository.GenericRepository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,15 +12,19 @@ namespace SystemOperations
 {
    public abstract class SystemOperationBase
     {
-        protected Broker broker = new Broker();
+        protected IRepository<IDomainObject> repository = new GenericDbRepository();
 
+      //  protected Broker broker = new Broker();
         public bool Uspesno { get; set; } = true;
         public void  ExecuteTemplate()
         {
             try
             {
-                broker.OpenConnection();
+               // broker.OpenConnection();
+                repository.OpenConnection();
+                repository.BeginTransaction();
                 Execute();
+                repository.Commit();
                
 
             }catch(Exception ex)
@@ -30,9 +36,12 @@ namespace SystemOperations
             }
             finally
             {
-                broker.CloseConnection();
+                //broker.CloseConnection();
+                repository.CloseConnection();
             }
         }
         protected abstract void Execute();
     }
+
+    
 }

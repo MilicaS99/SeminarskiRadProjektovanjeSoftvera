@@ -9,9 +9,9 @@ namespace Domain
     [Serializable]
     public enum Uzrast
     {
-        TriGodine,
-        ČetiriGodine,
-        PetGodina,
-        ŠestGodina,
+        TriGodine=1,
+        ČetiriGodine=2,
+        PetGodina=3,
+        ŠestGodina=4,
     }
 }

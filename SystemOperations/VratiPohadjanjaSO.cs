@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-   public  class VratiListuUčenikaSO : SystemOperationBase
+    public class VratiPohadjanjaSO : SystemOperationBase
     {
-        public List<Učenik> Rezultat { get; set; }
+
+        public List<Pohadjanje> Rezultat { get; set; }
         protected override void Execute()
         {
-            Rezultat = broker.vratiListuUčenika();
+            Rezultat = repository.VratiSve(new Pohadjanje()).OfType<Pohadjanje>().ToList();
         }
     }
 }

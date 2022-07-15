@@ -17,7 +17,7 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                broker.ZapamtiPohadjanje(pohadjanje);
+               // broker.ZapamtiPohadjanje(pohadjanje);
                 return true;
 
             }
@@ -37,7 +37,8 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                return broker.VratiPohadjanja();
+                //return broker.VratiPohadjanja();
+                return null;
                
 
             }

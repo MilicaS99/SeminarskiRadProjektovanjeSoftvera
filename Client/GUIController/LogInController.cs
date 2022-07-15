@@ -33,7 +33,7 @@ namespace Client.GUIController
                 }
             }catch(SocketException  ex)
             {
-                MessageBox.Show("Greška pri konektovanju na server!");
+                MessageBox.Show("Greška pri konektovanju na server, server nije pokrenut!");
             }
             catch (Exception ex)
             {

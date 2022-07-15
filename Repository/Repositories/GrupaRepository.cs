@@ -9,35 +9,17 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class ProgramRepository
+    public class GrupaRepository
     {
         private Broker broker = new Broker();
-        public bool SacuvajProgram(Program program)
+
+        public bool ZapamtiGrupu(Grupa grupa)
         {
             try
             {
                 broker.OpenConnection();
-                broker.SacuvajProgram(program);
+              //  broker.SacuvajGrupu(grupa);
                 return true;
-
-            }catch(Exception ex)
-            {
-                Debug.WriteLine(">>>" + ex.Message);
-                return false;
-            }
-            finally
-            {
-                broker.CloseConnection();
-            }
-        }
-
-        public object NadjiPrograme(string v)
-        {
-            try
-            {
-                broker.OpenConnection();
-               return broker.NadjiPrograme(v);
-               
 
             }
             catch (Exception ex)
@@ -51,13 +33,53 @@ namespace Repository
             }
         }
 
-        public object VratiListuPrograma()
+        public object VratiSveGrupe()
         {
             try
             {
                 broker.OpenConnection();
-                return broker.VratiListuPrograma();
+              //  return broker.VratiSveGrupe();
+              return null;
+             
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>" + ex.Message);
+                return false;
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
+        }
 
+        public object NadjiGrupe(string kriterijum)
+        {
+            try
+            {
+                broker.OpenConnection();
+                //  return broker.NadjiGrupe(kriterijum);
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>" + ex.Message);
+                return false;
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
+        }
+
+        public bool ZapamtiNovuGrupu(Grupa grupa)
+        {
+            try
+            {
+                broker.OpenConnection();
+                //broker.ZapamtiNovuGrupu(grupa);
+                return true;
 
             }
             catch (Exception ex)

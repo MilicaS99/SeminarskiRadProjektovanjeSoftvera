@@ -16,7 +16,9 @@ namespace SystemOperations
         }
         protected override void Execute()
         {
-            broker.SacuvajProgram(program);
+            //broker.SacuvajProgram(program);
+            int ProgramId = repository.DodajSaVracanjem(program);
+            //repository.Dodaj(program);
         }
     }
 }

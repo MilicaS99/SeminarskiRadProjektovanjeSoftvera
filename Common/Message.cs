@@ -30,8 +30,15 @@ namespace Common
         VratiSveGrupe,
         ZapamtiNovuGrupu,
         ZapamtiPohadjanje,
-        Kraj,
-        VratiPohadjanja
+        EndCommunication,
+        VratiPohadjanja,
+        PostojiVaspitač,
+        VratiTrazenuGrupu,
+        ObrišiUčenikaizGrupe,
+        VratiVaspitačeNaProgramu,
+        UcitajVaspitaca,
+        UcitajUcenika,
+        UcitajProgram
     }
     [Serializable]
     public class Message

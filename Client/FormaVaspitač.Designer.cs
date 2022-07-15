@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace Client
 {
     partial class FormaVaspitač
@@ -290,5 +292,23 @@ namespace Client
         private System.Windows.Forms.Button btnPretrazi;
         private System.Windows.Forms.Button btnIzmeniVaspitača;
         private System.Windows.Forms.Button btnPrikaziDetljnije;
+
+        public Label Label1 { get => label1; set => label1 = value; }
+        public Label Label2 { get => label2; set => label2 = value; }
+        public Label Label3 { get => label3; set => label3 = value; }
+        public Label Label4 { get => label4; set => label4 = value; }
+        public Label Label5 { get => label5; set => label5 = value; }
+        public TextBox TxtIme { get => txtIme; set => txtIme = value; }
+        public TextBox TxtPrezime { get => txtPrezime; set => txtPrezime = value; }
+        public TextBox TxtKontakt { get => txtKontakt; set => txtKontakt = value; }
+        public TextBox TxtPol { get => txtPol; set => txtPol = value; }
+        public ComboBox CbProgram { get => cbProgram; set => cbProgram = value; }
+        public Button BtnDodajVaspitača { get => btnDodajVaspitača; set => btnDodajVaspitača = value; }
+        public DataGridView DataGridView1 { get => dataGridView1; set => dataGridView1 = value; }
+        public Label Label6 { get => label6; set => label6 = value; }
+        public TextBox TxtPretraga { get => txtPretraga; set => txtPretraga = value; }
+        public Button BtnPretrazi { get => btnPretrazi; set => btnPretrazi = value; }
+        public Button BtnIzmeniVaspitača { get => btnIzmeniVaspitača; set => btnIzmeniVaspitača = value; }
+        public Button BtnPrikaziDetljnije { get => btnPrikaziDetljnije; set => btnPrikaziDetljnije = value; }
     }
 }

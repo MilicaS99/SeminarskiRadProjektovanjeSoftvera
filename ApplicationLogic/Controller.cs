@@ -13,11 +13,14 @@ namespace ApplicationLogic
     public class Controller
     {
         private static Controller instance;
-        private ProgramRepository programprepository = new ProgramRepository();
-        private VaspitačRepository vaspitačRepository = new VaspitačRepository();
-        private UčenikRepository ucenikRepository = new UčenikRepository();
-        private GrupaRepository grupaRepository = new GrupaRepository();
-        private PohadjanjeRepository pohadjanjeRepository = new PohadjanjeRepository();
+
+        #region inicijalizacija repozitorijuma
+        /* private ProgramRepository programprepository = new ProgramRepository();
+         private VaspitačRepository vaspitačRepository = new VaspitačRepository();
+         private UčenikRepository ucenikRepository = new UčenikRepository();
+         private GrupaRepository grupaRepository = new GrupaRepository();
+         private PohadjanjeRepository pohadjanjeRepository = new PohadjanjeRepository();*/
+        #endregion
 
         private Controller()
         {
@@ -35,10 +38,14 @@ namespace ApplicationLogic
                 return instance;
             }
         }
-
+        
         public object VratiPohadjanja()
         {
-            return pohadjanjeRepository.VratiPohadjanja();
+
+            SystemOperationBase vratipohadjanja = new VratiPohadjanjaSO();
+            vratipohadjanja.ExecuteTemplate();
+            return ((VratiPohadjanjaSO)vratipohadjanja).Rezultat;
+
         }
 
         public List<Korisnik> ListaKorisnika { get; set; }
@@ -56,16 +63,11 @@ namespace ApplicationLogic
 
         public object LogIN(Korisnik korisnik)
         {
-            foreach(Korisnik k in ListaKorisnika)
-            {
-                if(k.KorisnickoIme==korisnik.KorisnickoIme && k.Lozinka == korisnik.Lozinka){
+           
 
-
-
-                    return k;
-                }
-            }
-            return null;
+            SystemOperationBase login = new LoginSO(korisnik);
+            login.ExecuteTemplate();
+            return ((LoginSO)login).Rezultat;
         }
 
         public bool ZapamtiProgram(Program program)
@@ -88,9 +90,9 @@ namespace ApplicationLogic
         public object VratiListuPrograma()
         {
             //return programprepository.VratiListuPrograma();
-            SystemOperationBase vratilistuprograma = new VratiListuProgramaSO();
+            SystemOperationBase vratilistuprograma = new UcitajListuProgramaSO();
             vratilistuprograma.ExecuteTemplate();
-            return ((VratiListuProgramaSO)vratilistuprograma).Rezultat;
+            return ((UcitajListuProgramaSO)vratilistuprograma).Rezultat;
         }
 
         public bool ZapamtiVaspitaca(Vaspitač vaspitač)
@@ -113,17 +115,17 @@ namespace ApplicationLogic
         public object VratiListuVaspitaca()
         {
             //return vaspitačRepository.VratiListuVaspitaca();
-            SystemOperationBase vratilistuvaspitaca = new VratiListuVaspitačaSO();
+            SystemOperationBase vratilistuvaspitaca = new UcitajListuVaspitačaSO();
             vratilistuvaspitaca.ExecuteTemplate();
-            return ((VratiListuVaspitačaSO)vratilistuvaspitaca).Rezultat;
+            return ((UcitajListuVaspitačaSO)vratilistuvaspitaca).Rezultat;
         }
 
-        public object VratiVaspitacePoKriterijumu(string kriterijum)
+        public object PretraziVaspitaca(string kriterijum)
         {
             //return vaspitačRepository.vratiVaspitacePoKriterijumu(v);
-            SystemOperationBase nadjivaspitace = new NadjiVaspitačeSO(kriterijum);
+            SystemOperationBase nadjivaspitace = new PretraziVaspitacaSO(kriterijum);
             nadjivaspitace.ExecuteTemplate();
-            return ((NadjiVaspitačeSO)nadjivaspitace).Rezultat;
+            return ((PretraziVaspitacaSO)nadjivaspitace).Rezultat;
         }
 
         public bool ZapamtiIzmenjenogVaspitača(Vaspitač vaspitač)
@@ -137,17 +139,17 @@ namespace ApplicationLogic
         public object VratiListuUčenika()
         {
             // return ucenikRepository.VratiListuUčenika();
-            SystemOperationBase vratilistuucenika = new VratiListuUčenikaSO();
+            SystemOperationBase vratilistuucenika = new UcitajListuUcenikaSO();
             vratilistuucenika.ExecuteTemplate();
-            return ((VratiListuUčenikaSO)vratilistuucenika).Rezultat;
+            return ((UcitajListuUcenikaSO)vratilistuucenika).Rezultat;
         }
 
-        public object NadjiUčenike(string kriterijum)
+        public object PretraziUcenike(string kriterijum)
         {
             // return ucenikRepository.NadjiUčenike(kriterijum);
-            SystemOperationBase pronadjiucenike = new NadjiUčenikeSO(kriterijum);
+            SystemOperationBase pronadjiucenike = new PretraziUcenikeSO(kriterijum);
             pronadjiucenike.ExecuteTemplate();
-            return ((NadjiUčenikeSO)pronadjiucenike).Rezultat;
+            return ((PretraziUcenikeSO)pronadjiucenike).Rezultat;
         }
 
         public Array VratiListuUzrasta()
@@ -166,13 +168,7 @@ namespace ApplicationLogic
 
         }
 
-        public object VratiSveGrupe()
-        {
-            // return grupaRepository.VratiSveGrupe();
-            SystemOperationBase vratigrupe =new VratiListuGrupaSO();
-            vratigrupe.ExecuteTemplate();
-            return ((VratiListuGrupaSO)vratigrupe).Rezultat;
-        }
+      
 
         public object NadjiGrupe(string kriterijum)
         {
@@ -183,17 +179,67 @@ namespace ApplicationLogic
 
         }
 
-        public bool ZapamtiNovuGrupu(Grupa grupa)
+        public bool ZapamtiNovuGrupu(List<object> objektiZaCuvanje)
         {
-            return grupaRepository.ZapamtiNovuGrupu(grupa);
+            //return grupaRepository.ZapamtiNovuGrupu(objektiZaCuvanje);
+            SystemOperationBase zapamtiNovuGrupu = new ZapamtiNovuGrupuSO(objektiZaCuvanje);
+            zapamtiNovuGrupu.ExecuteTemplate();
+            return zapamtiNovuGrupu.Uspesno;
         }
 
-        public bool ZapamtiPohadjanje(Pohadjanje pohadjanje)
+    
+
+       
+
+        public object UcitajGrupu(Grupa grupa)
         {
-            //return pohadjanjeRepository.ZapamtiPohadjanje(pohadjanje);
-            SystemOperationBase zapamtipohadjanje = new ZapamtiPohadjanjeSO(pohadjanje);
-            zapamtipohadjanje.ExecuteTemplate();
-            return zapamtipohadjanje.Uspesno;
+            SystemOperationBase ucitajgrupu = new UčitajGrupuSO(grupa);
+            ucitajgrupu.ExecuteTemplate();
+
+            return ((UčitajGrupuSO)ucitajgrupu).nadjenaGrupa;
+
         }
+
+        public bool ObrisiUcenikaIzGrupe(Pohadjanje pohadjanje)
+        {
+            SystemOperationBase obrisiucenikaizgrupe = new ObrisiUcenikaIzGrupe(pohadjanje);
+            obrisiucenikaizgrupe.ExecuteTemplate();
+
+            return obrisiucenikaizgrupe.Uspesno;
+        }
+
+        public object UcitajVaspitaca(Vaspitač vaspitač)
+        {
+            SystemOperationBase ucitajVaspitaca = new UcitajVaspitacaSO(vaspitač);
+            ucitajVaspitaca.ExecuteTemplate();
+            return ((UcitajVaspitacaSO)ucitajVaspitaca).Rezultat;
+
+        }
+
+        public object UcitajProgram(Program program)
+        {
+            SystemOperationBase ucitajVaspitaca = new UcitajProgramSO(program);
+            ucitajVaspitaca.ExecuteTemplate();
+            return ((UcitajProgramSO)ucitajVaspitaca).Rezultat;
+        }
+
+        public object UcitajUcenika(Učenik učenik)
+        {
+            SystemOperationBase ucitajUcenika = new UcitajUcenikaSO(učenik);
+            ucitajUcenika.ExecuteTemplate();
+
+            return ((UcitajUcenikaSO)ucitajUcenika).Rezultat;
+
+        }
+
+        public object VratiVaspitaceNaProgramu(Domain.Program program)
+        {
+            SystemOperationBase vrativaspitačenaprogramu = new VratiVaspitačeNaProgramuSO(program);
+            vrativaspitačenaprogramu.ExecuteTemplate();
+
+            return ((VratiVaspitačeNaProgramuSO)vrativaspitačenaprogramu).Rezultat;
+        }
+
+        
     }
 }

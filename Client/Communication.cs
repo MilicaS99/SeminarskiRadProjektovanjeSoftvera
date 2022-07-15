@@ -1,10 +1,14 @@
-﻿using Common;
+﻿using Client.Exceptions;
+using Common;
 using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,30 +39,24 @@ namespace Client
 
         internal object VratiSveUzraste()
         {
-            Message m = new Message();
-
-            m.Operation = Operation.UčitajListuUzrasta;
-            helper.Send(m);
+           
+            PosaljiZahtev(Operation.UčitajListuUzrasta);
             Message receivemessage = helper.Receive<Message>();
             return (Array)receivemessage.messageResponse;
         }
 
-        internal List<Grupa> VratiSveGrupe()
+        /*internal List<Grupa> VratiSveGrupe()
         {
-            Message m = new Message();
-
-            m.Operation = Operation.VratiSveGrupe;
-            helper.Send(m);
+           
+            PosaljiZahtev(Operation.VratiSveGrupe);
             Message receivemessage = helper.Receive<Message>();
             return (List<Grupa>)receivemessage.messageResponse;
-        }
+        }*/
 
         internal bool ZapamtiPohadjanje(Pohadjanje pohadjanje)
         {
-            Message m = new Message();
-            m.messageRequest = pohadjanje;
-            m.Operation = Operation.ZapamtiPohadjanje;
-            helper.Send(m);
+            
+            PosaljiZahtev(Operation.ZapamtiPohadjanje,pohadjanje);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -74,20 +72,16 @@ namespace Client
 
         internal List<Pohadjanje> VratiSvaPohadnja()
         {
-            Message m = new Message();
-
-            m.Operation = Operation.VratiPohadjanja;
-            helper.Send(m);
+           
+            PosaljiZahtev(Operation.VratiPohadjanja);
             Message receivemessage = helper.Receive<Message>();
             return (List<Domain.Pohadjanje>)receivemessage.messageResponse;
         }
 
         internal List<Učenik> VratiListuUčenika()
         {
-            Message m = new Message();
-
-            m.Operation = Operation.UčitajListuUčenika;
-            helper.Send(m);
+            
+            PosaljiZahtev(Operation.UčitajListuUčenika);
             Message receivemessage = helper.Receive<Message>();
             return (List<Domain.Učenik>)receivemessage.messageResponse;
         }
@@ -97,10 +91,7 @@ namespace Client
             List<object> objektizacuvanje = new List<object>();
             objektizacuvanje.Add(grupa);
             objektizacuvanje.Add(pohadjanja);
-            Message m = new Message();
-            m.messageRequest = objektizacuvanje;
-            m.Operation = Operation.ZapamtiGrupu;
-            helper.Send(m);
+            PosaljiZahtev(Operation.ZapamtiGrupu,objektizacuvanje);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -115,34 +106,33 @@ namespace Client
 
         }
 
-
+      
 
         internal List<Vaspitač> VratiSveVaspitače()
         {
-            Message m = new Message();
-
-            m.Operation = Operation.UčitajListuVaspitača;
-            helper.Send(m);
+            PosaljiZahtev(Operation.UčitajListuVaspitača);
             Message receivemessage = helper.Receive<Message>();
             return (List<Domain.Vaspitač>)receivemessage.messageResponse;
         }
 
+        internal Domain.Program UcitajProgram(Domain.Program program)
+        {
+            PosaljiZahtev(Operation.UcitajProgram, program);
+            Message receivemessage = helper.Receive<Message>();
+
+            return (Domain.Program)receivemessage.messageResponse;
+        }
+
         internal List<Domain.Program> VratiListuPrograma()
         {
-            Message m = new Message();
-
-            m.Operation = Operation.UčitajListuPrograma;
-            helper.Send(m);
+            PosaljiZahtev(Operation.UčitajListuPrograma);
             Message receivemessage = helper.Receive<Message>();
             return (List<Domain.Program>)receivemessage.messageResponse;
         }
 
         internal object PretragaUčenika(string kriterijum)
         {
-            Message m = new Message();
-            m.messageRequest = kriterijum;
-            m.Operation = Operation.PretražiUčenike;
-            helper.Send(m);
+            PosaljiZahtev(Operation.PretražiUčenike,kriterijum);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -157,32 +147,58 @@ namespace Client
             return null;
         }
 
-        internal List<Grupa> PretragaGrupa(string kriterijum)
+        internal Učenik UcitajUcenika(Učenik ucenik)
         {
-            Message m = new Message();
-            m.messageRequest = kriterijum;
-            m.Operation = Operation.NadjiGrupe;
-            helper.Send(m);
+            PosaljiZahtev(Operation.UcitajUcenika, ucenik);
             Message receivemessage = helper.Receive<Message>();
-            if (receivemessage.isSuccesfull == true)
+
+            return (Učenik)receivemessage.messageResponse;
+        }
+
+        internal List<object> VratiTrazenuGrupu(Grupa grupa)
+        {
+            PosaljiZahtev(Operation.VratiTrazenuGrupu, grupa);
+            Message receivemessage = helper.Receive<Message>();
+           
+                return (List<object>)receivemessage.messageResponse;
+            
+          
+        }
+
+        internal Vaspitač UcitajVaspitaca(Vaspitač vaspitac)
+        {
+            PosaljiZahtev(Operation.UcitajVaspitaca, vaspitac);
+            Message receivemessage = helper.Receive<Message>();
+            return (Vaspitač)receivemessage.messageResponse;
+            
+        }
+
+        internal List<Pohadjanje> PretragaGrupa(string kriterijum)
+        {
+            PosaljiZahtev(Operation.NadjiGrupe,kriterijum);
+            Message receivemessage = helper.Receive<Message>();
+            if (receivemessage.messageResponse!=null)
             {
                 System.Windows.Forms.MessageBox.Show("Sistem je našao grupe po zadatoj vrednosti!");
-                return (List<Domain.Grupa>)receivemessage.messageResponse;
+                return (List<Domain.Pohadjanje>)receivemessage.messageResponse;
             }
             else
             {
                 System.Windows.Forms.MessageBox.Show("Sistem ne može da nadje grupe po zadatoj vrednosti!");
+                return new List<Pohadjanje>();
 
             }
-            return null;
+           
         }
 
-        internal bool SacuvajNovuGrupu(Grupa izabranaGrupa)
+        internal bool SacuvajNovuGrupu(Grupa izabranaGrupa, List<Pohadjanje> pohadjanja)
         {
-            Message m = new Message();
-            m.messageRequest = izabranaGrupa;
-            m.Operation = Operation.ZapamtiNovuGrupu;
-            helper.Send(m);
+           
+          
+            List<object> objektizacuvanje = new List<object>();
+            objektizacuvanje.Add(izabranaGrupa);
+            objektizacuvanje.Add(pohadjanja);
+            PosaljiZahtev(Operation.ZapamtiNovuGrupu,objektizacuvanje);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -198,10 +214,7 @@ namespace Client
 
         internal void SacuvajUcenika(Učenik ucenik)
         {
-            Message m = new Message();
-            m.messageRequest = ucenik;
-            m.Operation = Operation.ZapamtiUčenika;
-            helper.Send(m);
+            PosaljiZahtev(Operation.ZapamtiUčenika, ucenik);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -216,21 +229,18 @@ namespace Client
 
         }
 
-        internal IList<Vaspitač> VratiVaspitacePoKriterijumu(string kriterijum)
+        internal List<Vaspitač> VratiVaspitacePoKriterijumu(string kriterijum)
         {
-            Message m = new Message();
-            m.messageRequest = kriterijum;
-            m.Operation = Operation.PretražiVaspitača;
-            helper.Send(m);
+            PosaljiZahtev(Operation.PretražiVaspitača,kriterijum);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
-                System.Windows.Forms.MessageBox.Show("Sistem je našao programe po zadatoj vrednosti!");
+                System.Windows.Forms.MessageBox.Show("Sistem je našao vaspitače po zadatoj vrednosti!");
                 return (List<Domain.Vaspitač>)receivemessage.messageResponse;
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("Sistem ne može da nadje programe po zadatoj vrednosti!");
+                System.Windows.Forms.MessageBox.Show("Sistem ne može da nadje vaspitače po zadatoj vrednosti!");
                 return new List<Vaspitač>();
 
             }
@@ -238,12 +248,45 @@ namespace Client
             
         }
 
+        internal List<Vaspitač> VratiVaspitačeNaProgramu(Domain.Program program)
+        {
+            PosaljiZahtev(Operation.VratiVaspitačeNaProgramu, program);
+            Message receivemessage = helper.Receive<Message>();
+            return (List<Domain.Vaspitač>)receivemessage.messageResponse;
+        }
+
+        internal bool ObrisiUcenikaIzGrupe(Pohadjanje pohadjanje)
+        {
+            PosaljiZahtev(Operation.ObrišiUčenikaizGrupe,pohadjanje);
+            Message receivemessage = helper.Receive<Message>();
+            if (receivemessage.isSuccesfull == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        private void PosaljiZahtev(Operation operacija,object requestObject=null)
+        {
+            try
+            {
+                Message m = new Message();
+                m.Operation = operacija;
+                m.messageRequest = requestObject;
+                helper.Send(m);
+            }catch(IOException ex)
+            {
+                throw new ServerCommunicationException(ex.Message);
+            }
+        }
         internal bool SacuvajIzmenjenogVaspitaca(Vaspitač izabraniRed)
         {
-            Message m = new Message();
-            m.messageRequest = izabraniRed;
-            m.Operation = Operation.zapamtiNovogVaspitača;
-            helper.Send(m);
+
+            PosaljiZahtev(Operation.zapamtiNovogVaspitača, izabraniRed);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -257,16 +300,13 @@ namespace Client
             }
         }
 
-        internal void KreitajVaspitaca(Vaspitač v)
+        internal void KreitajVaspitaca(Vaspitač vaspitac)
         {
-            Message m = new Message();
-            m.messageRequest = v;
-            m.Operation = Operation.ZapamtiVaspitača;
-            helper.Send(m);
+            PosaljiZahtev(Operation.ZapamtiVaspitača, vaspitac);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
-                System.Windows.Forms.MessageBox.Show($"{v.Ime} {v.Prezime},Vaspitač je zapamćen u sistem!");
+                System.Windows.Forms.MessageBox.Show($"{vaspitac.Ime} {vaspitac.Prezime},Vaspitač je zapamćen u sistem!");
 
             }
             else
@@ -290,10 +330,7 @@ namespace Client
 
         internal object PretragaPrograma(string kriterijum)
         {
-            Message m = new Message();
-            m.messageRequest = kriterijum;
-            m.Operation = Operation.NadjiPrograme;
-            helper.Send(m);
+            PosaljiZahtev(Operation.NadjiPrograme, kriterijum);
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -310,10 +347,8 @@ namespace Client
 
         internal void SacuvajProgram(Domain.Program program)
         {
-            Message m = new Message();
-            m.messageRequest = program;
-            m.Operation = Operation.ZapamtiProgram;
-            helper.Send(m);
+            PosaljiZahtev(Operation.ZapamtiProgram, program);
+           
             Message receivemessage = helper.Receive<Message>();
             if (receivemessage.isSuccesfull == true)
             {
@@ -327,38 +362,31 @@ namespace Client
             }
         }
 
-        internal Korisnik LogIn(Korisnik k)
+        internal Korisnik LogIn(Korisnik korisnik)
         {
+            PosaljiZahtev(Operation.LogIN, korisnik);
             Message m = new Message();
-            m.messageRequest = k;
-            m.Operation = Operation.LogIN;
-            helper.Send(m);
             Message receivemessage = helper.Receive<Message>();
             return (Korisnik)receivemessage.messageResponse;
         }
 
-        internal Message ReadMessage()
-        {
-            return helper.Receive<Message>();
-        }
-
-
-        internal void Send(Message m)
-        {
-            helper.Send(m);
-        }
+        
         public void Close()
         {
-            if (socket == null) return;
-            Message request = new Message
+            try
             {
-                Operation = Operation.Kraj,
-            };
-            helper.Send(request);
 
-            socket.Shutdown(SocketShutdown.Both);
-            socket.Close();
-            socket = null;
+
+                PosaljiZahtev(Operation.EndCommunication);
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+                socket = null;
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }

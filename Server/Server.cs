@@ -63,11 +63,11 @@ namespace Server
         public void Stop()
         {
            
-            serverSocket.Close();
+            serverSocket.Dispose();//zatvaranje osluskujuceg soketa
             foreach(ClientHandler handler in clients.ToList())
             {
                 handler.CloseSocket();
-            }
+            }///prolazak kroz listu klijeanat i njohovo gasenje
         }
     }
 }

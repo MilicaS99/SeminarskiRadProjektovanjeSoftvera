@@ -19,14 +19,16 @@ namespace SystemOperations
 
         protected override void Execute()
         {
-            broker.SacuvajGrupu(objekti[0] as Grupa);
-            int id = broker.VratiIdPoslednjeUneteGrupe();
+           // broker.SacuvajGrupu(objekti[0] as Grupa);
+            //int id = broker.VratiIdPoslednjeUneteGrupe();
+            int id = repository.DodajSaVracanjem(objekti[0] as Grupa);
             pohadjanja = objekti[1] as List<Pohadjanje>;
             foreach (Pohadjanje p in pohadjanja)
             {
                 p.Grupa = new Grupa();
                 p.Grupa.GrupaID = id;
-                broker.ZapamtiPohadjanje(p);
+                //broker.ZapamtiPohadjanje(p);
+                repository.Dodaj(p);
             }
       
         }

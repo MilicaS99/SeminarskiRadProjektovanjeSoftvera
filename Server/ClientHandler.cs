@@ -24,14 +24,15 @@ namespace Server
             helper = new CommunicationHelper(clientSocket);
         }
 
-        private bool kraj = false;
+      //  private bool kraj = false;
         internal void handleRequest()
         {
             try
             {
-                while (!kraj)
+                Message messagerequest;
+                while ((messagerequest = helper.Receive<Message>()).Operation!=Operation.EndCommunication)
                 {
-                    Message messagerequest = helper.Receive<Message>();
+                     
                     Message response;
                     try
                     {
@@ -94,7 +95,7 @@ namespace Server
                     response.messageResponse = Controller.Instance.VratiListuVaspitaca();
                     break;
                 case Operation.PretražiVaspitača:
-                    response.messageResponse = Controller.Instance.VratiVaspitacePoKriterijumu(messagerequest.messageRequest as string);
+                    response.messageResponse = Controller.Instance.PretraziVaspitaca(messagerequest.messageRequest as string);
                     if (response.messageResponse == null)
                     {
                         response.isSuccesfull = false;
@@ -111,7 +112,7 @@ namespace Server
                     response.messageResponse = Controller.Instance.VratiListuUčenika();
                     break;
                 case Operation.PretražiUčenike:
-                    response.messageResponse = Controller.Instance.NadjiUčenike(messagerequest.messageRequest as string);
+                    response.messageResponse = Controller.Instance.PretraziUcenike(messagerequest.messageRequest as string);
                     if (response.messageResponse == null)
                     {
                         response.isSuccesfull = false;
@@ -127,32 +128,42 @@ namespace Server
                 case Operation.ZapamtiGrupu:
                     response.isSuccesfull = Controller.Instance.ZapamtiGrupu(messagerequest.messageRequest as List<object>);
                     break;
-                case Operation.VratiSveGrupe:
-                    response.messageResponse = Controller.Instance.VratiSveGrupe();
-                    break;
+               // case Operation.VratiSveGrupe:
+                  //  response.messageResponse = Controller.Instance.VratiSveGrupe();
+                 //   break;
                 case Operation.NadjiGrupe:
                     response.messageResponse = Controller.Instance.NadjiGrupe(messagerequest.messageRequest as string);
-                    if (response.messageResponse == null)
-                    {
-                        response.isSuccesfull = false;
-                    }
-                    else
-                    {
-                        response.isSuccesfull = true;
-                    }
+                  
                     break;
                 case Operation.ZapamtiNovuGrupu:
-                    response.isSuccesfull = Controller.Instance.ZapamtiNovuGrupu(messagerequest.messageRequest as Grupa);
+                    response.isSuccesfull = Controller.Instance.ZapamtiNovuGrupu(messagerequest.messageRequest as List<object>);
                     break;
-                case Operation.ZapamtiPohadjanje:
-                    response.isSuccesfull = Controller.Instance.ZapamtiPohadjanje(messagerequest.messageRequest as Pohadjanje);
-                    break;
+            
                 case Operation.VratiPohadjanja:
-                    response.messageResponse = Controller.Instance.VratiPohadjanja();
+                   response.messageResponse = Controller.Instance.VratiPohadjanja();
                     break;
-                case Operation.Kraj:
+                
+                case Operation.VratiTrazenuGrupu:
+                    response.messageResponse = Controller.Instance.UcitajGrupu(messagerequest.messageRequest as Grupa);
+                    break;
+                case Operation.ObrišiUčenikaizGrupe:
+                    response.isSuccesfull = Controller.Instance.ObrisiUcenikaIzGrupe(messagerequest.messageRequest as Pohadjanje);
+                    break;
+                case Operation.VratiVaspitačeNaProgramu:
+                    response.messageResponse = Controller.Instance.VratiVaspitaceNaProgramu(messagerequest.messageRequest as Domain.Program);
+                    break;
+                case Operation.UcitajVaspitaca:
+                    response.messageResponse = Controller.Instance.UcitajVaspitaca(messagerequest.messageRequest as Vaspitač);
+                    break;
+                case Operation.UcitajUcenika:
+                    response.messageResponse = Controller.Instance.UcitajUcenika(messagerequest.messageRequest as Učenik);
+                    break;
+                case Operation.UcitajProgram:
+                    response.messageResponse = Controller.Instance.UcitajProgram(messagerequest.messageRequest as Domain.Program);
+                    break;
+               /* case Operation.EndCommunication:
                     kraj = true;
-                    break;
+                    break;*/
                 default:break;
 
             }
@@ -166,11 +177,11 @@ namespace Server
             {
                 if (clientSocket != null)
                 {
-                    kraj = true;
+                    
                     clientSocket.Shutdown(SocketShutdown.Both);
-                    clientSocket.Close();
+                    clientSocket.Dispose();
                     clientSocket = null;
-                    OdjavljenKlijent?.Invoke(this, EventArgs.Empty);
+                    OdjavljenKlijent?.Invoke(this, EventArgs.Empty);//?/provera da li j enull
                 }
             }
         }

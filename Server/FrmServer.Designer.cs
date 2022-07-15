@@ -36,22 +36,26 @@ namespace Server
             // 
             // btnPokreni
             // 
+            this.btnPokreni.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnPokreni.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPokreni.Location = new System.Drawing.Point(204, 12);
             this.btnPokreni.Name = "btnPokreni";
             this.btnPokreni.Size = new System.Drawing.Size(75, 23);
             this.btnPokreni.TabIndex = 0;
             this.btnPokreni.Text = "Pokreni";
-            this.btnPokreni.UseVisualStyleBackColor = true;
+            this.btnPokreni.UseVisualStyleBackColor = false;
             this.btnPokreni.Click += new System.EventHandler(this.btnPokreni_Click);
             // 
             // btnZaustavi
             // 
+            this.btnZaustavi.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnZaustavi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZaustavi.Location = new System.Drawing.Point(308, 12);
             this.btnZaustavi.Name = "btnZaustavi";
             this.btnZaustavi.Size = new System.Drawing.Size(75, 23);
             this.btnZaustavi.TabIndex = 1;
             this.btnZaustavi.Text = "Zaustavi";
-            this.btnZaustavi.UseVisualStyleBackColor = true;
+            this.btnZaustavi.UseVisualStyleBackColor = false;
             this.btnZaustavi.Click += new System.EventHandler(this.btnZaustavi_Click);
             // 
             // FrmServer

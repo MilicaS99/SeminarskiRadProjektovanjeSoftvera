@@ -40,6 +40,7 @@ namespace Client
             this.txtNaziv = new System.Windows.Forms.TextBox();
             this.richTextBoxOpis = new System.Windows.Forms.RichTextBox();
             this.btnDodajProgram = new System.Windows.Forms.Button();
+            this.btnPrikaziProgram = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,10 +71,11 @@ namespace Client
             // dataGridView1
             // 
             this.dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(102, 272);
+            this.dataGridView1.ColumnHeadersHeight = 30;
+            this.dataGridView1.Location = new System.Drawing.Point(24, 272);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(266, 131);
+            this.dataGridView1.RowHeadersWidth = 67;
+            this.dataGridView1.Size = new System.Drawing.Size(344, 194);
             this.dataGridView1.TabIndex = 6;
             // 
             // txtKriterijum
@@ -141,12 +143,27 @@ namespace Client
             this.btnDodajProgram.UseVisualStyleBackColor = false;
             this.btnDodajProgram.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnPrikaziProgram
+            // 
+            this.btnPrikaziProgram.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnPrikaziProgram.BackColor = System.Drawing.Color.GhostWhite;
+            this.btnPrikaziProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrikaziProgram.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.btnPrikaziProgram.Location = new System.Drawing.Point(489, 344);
+            this.btnPrikaziProgram.Name = "btnPrikaziProgram";
+            this.btnPrikaziProgram.Size = new System.Drawing.Size(104, 30);
+            this.btnPrikaziProgram.TabIndex = 14;
+            this.btnPrikaziProgram.Text = "PrikažiProgram";
+            this.btnPrikaziProgram.UseVisualStyleBackColor = false;
+            this.btnPrikaziProgram.Click += new System.EventHandler(this.btnPrikaziProgram_Click);
+            // 
             // FormaProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(641, 478);
+            this.Controls.Add(this.btnPrikaziProgram);
             this.Controls.Add(this.btnDodajProgram);
             this.Controls.Add(this.richTextBoxOpis);
             this.Controls.Add(this.txtNaziv);
@@ -175,6 +192,7 @@ namespace Client
         private System.Windows.Forms.TextBox txtNaziv;
         private System.Windows.Forms.RichTextBox richTextBoxOpis;
         private System.Windows.Forms.Button btnDodajProgram;
+        private Button btnPrikaziProgram;
 
         public Label LblNaziv { get => lblNaziv; set => lblNaziv = value; }
         public Label LblOpis { get => lblOpis; set => lblOpis = value; }

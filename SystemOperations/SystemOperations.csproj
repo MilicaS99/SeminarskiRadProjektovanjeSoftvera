@@ -41,23 +41,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogInSO.cs" />
-    <Compile Include="NadjiGrupeSO.cs" />
-    <Compile Include="NadjiProgrameSO.cs" />
-    <Compile Include="NadjiUčenikeSO.cs" />
-    <Compile Include="NadjiVaspitačeSO.cs" />
-    <Compile Include="VratiListuGrupaSO.cs" />
-    <Compile Include="VratiListuProgramaSO.cs" />
-    <Compile Include="VratiListuUčenikaSO.cs" />
-    <Compile Include="VratiListuVaspitačaSO.cs" />
-    <Compile Include="ZapamtiGrupuSO.cs" />
-    <Compile Include="ZapamtiIzmenjenogVaspitačaSO.cs" />
-    <Compile Include="ZapamtiPohadjanjeSO.cs" />
-    <Compile Include="ZapamtiProgramSO.cs" />
+    <Compile Include="LoginSO.cs" />
+    <Compile Include="Grupa\NadjiGrupeSO.cs" />
+    <Compile Include="Program\NadjiProgrameSO.cs" />
+    <Compile Include="Ucenik\PretraziUcenikeSO.cs" />
+    <Compile Include="Vaspitac\PretraziVaspitacaSO.cs" />
+    <Compile Include="Ucenik\ObrisiUcenikaIzGrupeSO.cs" />
+    <Compile Include="Program\UcitajProgramSO.cs" />
+    <Compile Include="Ucenik\UcitajUcenikaSO.cs" />
+    <Compile Include="Vaspitac\UcitajVaspitacaSO.cs" />
+    <Compile Include="Grupa\UčitajGrupuSO.cs" />
+    <Compile Include="Program\UcitajListuProgramaSO.cs" />
+    <Compile Include="Ucenik\UcitajListuUcenikaSO.cs" />
+    <Compile Include="Vaspitac\UcitajListuVaspitačaSO.cs" />
+    <Compile Include="VratiPohadjanjaSO.cs" />
+    <Compile Include="Vaspitac\VratiVaspitačeNaProgramuSO.cs" />
+    <Compile Include="Grupa\ZapamtiGrupuSO.cs" />
+    <Compile Include="Vaspitac\ZapamtiIzmenjenogVaspitačaSO.cs" />
+    <Compile Include="Grupa\ZapamtiNovuGrupuSO.cs" />
+    <Compile Include="Program\ZapamtiProgramSO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemOperationBase.cs" />
-    <Compile Include="ZapamtiUčenikaSO.cs" />
-    <Compile Include="ZapamtiVaspitačaSO.cs" />
+    <Compile Include="Ucenik\ZapamtiUčenikaSO.cs" />
+    <Compile Include="Vaspitac\ZapamtiVaspitačaSO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataBaseBroker\DataBaseBroker.csproj">
@@ -67,6 +73,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{45B1F97A-EC5C-472D-8169-DA793FF5C8CD}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{60F9E9B6-BC72-489F-B725-CDBB9EA382ED}</Project>
+      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

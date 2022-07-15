@@ -18,7 +18,7 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                broker.SacuvajVaspitaca(vaspitač);
+               // broker.SacuvajVaspitaca(vaspitač);
                 return true;
 
             }
@@ -38,7 +38,8 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-               return broker.vratiListuVaspitaca();
+                //return broker.vratiListuVaspitaca();
+                return null;
                
 
             }
@@ -59,7 +60,8 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                return broker.VratiVaspitačePoKriterijumu(v);
+                // return broker.VratiVaspitačePoKriterijumu(v);
+                return null;
 
 
             }
@@ -79,7 +81,7 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                broker.SacuvajIzmenjenogVaspitaca(vaspitač);
+               // broker.SacuvajIzmenjenogVaspitaca(vaspitač);
                 return true;
 
             }

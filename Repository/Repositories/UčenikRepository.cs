@@ -18,7 +18,7 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                broker.SacuvajUcenika(učenik);
+               // broker.SacuvajUcenika(učenik);
                 return true;
 
             }
@@ -38,7 +38,8 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                return broker.vratiListuUčenika();
+                // return broker.vratiListuUčenika();
+                return null;
 
             }
             catch (Exception ex)
@@ -57,7 +58,8 @@ namespace Repository
             try
             {
                 broker.OpenConnection();
-                return broker.NadjiUčenike(v); 
+                // return broker.NadjiUčenike(v); 
+                return null;
 
 
             }

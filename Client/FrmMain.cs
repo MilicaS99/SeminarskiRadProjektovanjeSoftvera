@@ -44,21 +44,25 @@ namespace Client
             FormaGrupa frmgrupa = new FormaGrupa();
             frmgrupa.ShowDialog();
         }
-
-        private void btnPohadjanje_Click(object sender, EventArgs e)
-        {
-            FormaPohadjanje frmpohadjanje = new FormaPohadjanje();
-            frmpohadjanje.ShowDialog();
-        }
+        /// <summary>
+        /// mislim da ti ovo ne trebba
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+       // private void btnPohadjanje_Click(object sender, EventArgs e)
+        //{
+          //  FormaPohadjanje frmpohadjanje = new FormaPohadjanje();
+            //frmpohadjanje.ShowDialog();
+        //}
 
         private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {
                 Communication.Instance.Close();
-            }catch(IOException ex)
+            }catch(Exception ex)
             {
-                Debug.WriteLine(">>>Zatvaranje forme!>>>" + ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
     }

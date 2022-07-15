@@ -9,20 +9,18 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class GrupaRepository
+    public class ProgramRepository
     {
         private Broker broker = new Broker();
-
-        public bool ZapamtiGrupu(Grupa grupa)
+        public bool SacuvajProgram(Program program)
         {
             try
             {
                 broker.OpenConnection();
-                broker.SacuvajGrupu(grupa);
+               // broker.SacuvajProgram(program);
                 return true;
 
-            }
-            catch (Exception ex)
+            }catch(Exception ex)
             {
                 Debug.WriteLine(">>>" + ex.Message);
                 return false;
@@ -33,31 +31,14 @@ namespace Repository
             }
         }
 
-        public object VratiSveGrupe()
+        public object NadjiPrograme(string v)
         {
             try
             {
                 broker.OpenConnection();
-                return broker.VratiSveGrupe();
-             
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(">>>" + ex.Message);
-                return false;
-            }
-            finally
-            {
-                broker.CloseConnection();
-            }
-        }
-
-        public object NadjiGrupe(string kriterijum)
-        {
-            try
-            {
-                broker.OpenConnection();
-                return broker.NadjiGrupe(kriterijum);
+                // return broker.NadjiPrograme(v);
+                return null;
+               
 
             }
             catch (Exception ex)
@@ -71,13 +52,14 @@ namespace Repository
             }
         }
 
-        public bool ZapamtiNovuGrupu(Grupa grupa)
+        public object VratiListuPrograma()
         {
             try
             {
                 broker.OpenConnection();
-                broker.ZapamtiNovuGrupu(grupa);
-                return true;
+                //return broker.VratiListuPrograma();
+                return null;
+
 
             }
             catch (Exception ex)

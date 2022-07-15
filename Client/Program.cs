@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +23,9 @@ namespace Client
              {
                  Application.Run(new FrmMain());
              }*/
-            while (true)
+
+            bool cancel = false;
+            while (!cancel)
             {
                 try
                 {
@@ -35,14 +38,14 @@ namespace Client
                     {
                         Application.Run(new FrmMain());
                     }
-                    if (result == DialogResult.Cancel)
+                    else
                     {
-                        break;
+                        cancel = true;
                     }
                 }
-                catch (Exception)
+                catch (ServerCommunicationException)
                 {
-                    MessageBox.Show("Greska pri radu sa serverom!");
+                    MessageBox.Show("Server je prestao sa radom!");
                 }
             }
 
