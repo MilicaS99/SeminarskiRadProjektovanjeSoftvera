@@ -48,6 +48,7 @@ namespace Client
             this.btnPretrazi = new System.Windows.Forms.Button();
             this.btnIzmeniVaspitača = new System.Windows.Forms.Button();
             this.btnPrikaziDetljnije = new System.Windows.Forms.Button();
+            this.btnobrisivaspitaca = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,37 +116,57 @@ namespace Client
             // 
             this.txtIme.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtIme.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.txtIme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIme.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtIme.Location = new System.Drawing.Point(210, 62);
             this.txtIme.Name = "txtIme";
             this.txtIme.Size = new System.Drawing.Size(204, 20);
             this.txtIme.TabIndex = 5;
+            this.txtIme.Text = "Ime";
+            this.txtIme.Enter += new System.EventHandler(this.txtIme_Enter);
+            this.txtIme.Leave += new System.EventHandler(this.txtIme_Leave);
             // 
             // txtPrezime
             // 
             this.txtPrezime.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPrezime.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.txtPrezime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrezime.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtPrezime.Location = new System.Drawing.Point(210, 98);
             this.txtPrezime.Name = "txtPrezime";
             this.txtPrezime.Size = new System.Drawing.Size(204, 20);
             this.txtPrezime.TabIndex = 6;
+            this.txtPrezime.Text = "Prezime";
+            this.txtPrezime.Enter += new System.EventHandler(this.txtPrezime_Enter);
+            this.txtPrezime.Leave += new System.EventHandler(this.txtPrezime_Leave);
             // 
             // txtKontakt
             // 
             this.txtKontakt.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtKontakt.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.txtKontakt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKontakt.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtKontakt.Location = new System.Drawing.Point(210, 164);
             this.txtKontakt.Name = "txtKontakt";
             this.txtKontakt.Size = new System.Drawing.Size(204, 20);
             this.txtKontakt.TabIndex = 7;
+            this.txtKontakt.Text = "06XXXXXXXX";
+            this.txtKontakt.Enter += new System.EventHandler(this.txtKontakt_Enter);
+            this.txtKontakt.Leave += new System.EventHandler(this.txtKontakt_Leave);
             // 
             // txtPol
             // 
             this.txtPol.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPol.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.txtPol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPol.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtPol.Location = new System.Drawing.Point(210, 132);
             this.txtPol.Name = "txtPol";
             this.txtPol.Size = new System.Drawing.Size(204, 20);
             this.txtPol.TabIndex = 8;
+            this.txtPol.Text = "Pol";
+            this.txtPol.Enter += new System.EventHandler(this.txtPol_Enter);
+            this.txtPol.Leave += new System.EventHandler(this.txtPol_Leave);
             // 
             // cbProgram
             // 
@@ -197,17 +218,23 @@ namespace Client
             // 
             this.txtPretraga.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPretraga.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.txtPretraga.Location = new System.Drawing.Point(632, 292);
+            this.txtPretraga.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPretraga.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtPretraga.Location = new System.Drawing.Point(625, 292);
             this.txtPretraga.Name = "txtPretraga";
-            this.txtPretraga.Size = new System.Drawing.Size(106, 20);
+            this.txtPretraga.Size = new System.Drawing.Size(137, 20);
             this.txtPretraga.TabIndex = 13;
+            this.txtPretraga.Text = "Unesite program";
+            this.txtPretraga.Click += new System.EventHandler(this.txtPretraga_Click);
+            this.txtPretraga.Enter += new System.EventHandler(this.txtPretraga_Enter);
+            this.txtPretraga.Leave += new System.EventHandler(this.txtPretraga_Leave);
             // 
             // btnPretrazi
             // 
             this.btnPretrazi.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnPretrazi.BackColor = System.Drawing.Color.LightCoral;
             this.btnPretrazi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPretrazi.Location = new System.Drawing.Point(766, 291);
+            this.btnPretrazi.Location = new System.Drawing.Point(784, 292);
             this.btnPretrazi.Name = "btnPretrazi";
             this.btnPretrazi.Size = new System.Drawing.Size(108, 21);
             this.btnPretrazi.TabIndex = 14;
@@ -234,7 +261,7 @@ namespace Client
             this.btnPrikaziDetljnije.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnPrikaziDetljnije.BackColor = System.Drawing.Color.LightCoral;
             this.btnPrikaziDetljnije.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrikaziDetljnije.Location = new System.Drawing.Point(766, 335);
+            this.btnPrikaziDetljnije.Location = new System.Drawing.Point(784, 333);
             this.btnPrikaziDetljnije.Name = "btnPrikaziDetljnije";
             this.btnPrikaziDetljnije.Size = new System.Drawing.Size(108, 21);
             this.btnPrikaziDetljnije.TabIndex = 16;
@@ -242,12 +269,25 @@ namespace Client
             this.btnPrikaziDetljnije.UseVisualStyleBackColor = false;
             this.btnPrikaziDetljnije.Click += new System.EventHandler(this.btnPrikaziDetljnije_Click);
             // 
+            // btnobrisivaspitaca
+            // 
+            this.btnobrisivaspitaca.BackColor = System.Drawing.Color.LightCoral;
+            this.btnobrisivaspitaca.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnobrisivaspitaca.Location = new System.Drawing.Point(567, 233);
+            this.btnobrisivaspitaca.Name = "btnobrisivaspitaca";
+            this.btnobrisivaspitaca.Size = new System.Drawing.Size(119, 35);
+            this.btnobrisivaspitaca.TabIndex = 17;
+            this.btnobrisivaspitaca.Text = "ObrisiVaspitaca";
+            this.btnobrisivaspitaca.UseVisualStyleBackColor = false;
+            this.btnobrisivaspitaca.Click += new System.EventHandler(this.btnobrisivaspitaca_Click);
+            // 
             // FormaVaspitač
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(931, 452);
+            this.Controls.Add(this.btnobrisivaspitaca);
             this.Controls.Add(this.btnPrikaziDetljnije);
             this.Controls.Add(this.btnIzmeniVaspitača);
             this.Controls.Add(this.btnPretrazi);
@@ -292,6 +332,7 @@ namespace Client
         private System.Windows.Forms.Button btnPretrazi;
         private System.Windows.Forms.Button btnIzmeniVaspitača;
         private System.Windows.Forms.Button btnPrikaziDetljnije;
+        private Button btnobrisivaspitaca;
 
         public Label Label1 { get => label1; set => label1 = value; }
         public Label Label2 { get => label2; set => label2 = value; }

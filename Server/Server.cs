@@ -64,6 +64,7 @@ namespace Server
         {
            
             serverSocket.Dispose();//zatvaranje osluskujuceg soketa
+          
             foreach(ClientHandler handler in clients.ToList())
             {
                 handler.CloseSocket();

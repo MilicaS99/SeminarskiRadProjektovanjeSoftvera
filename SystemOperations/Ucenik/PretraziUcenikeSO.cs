@@ -18,6 +18,10 @@ namespace SystemOperations
         protected override void Execute()
         {
             Rezultat = repository.Pronadji(new Učenik(), kriterijum).OfType<Učenik>().ToList();
+            if (Rezultat.Count == 0)
+            {
+                Rezultat = null;
+            }
         }
     }
 }

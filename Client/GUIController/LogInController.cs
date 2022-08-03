@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Client.Exceptions;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,18 +21,16 @@ namespace Client.GUIController
             try
             {
                 Communication.Instance.Connect();
-                k = Communication.Instance.LogIn(k);
-                if (k != null)
-                {
+                //  k = Communication.Instance.LogIn(k);
+                k = Communication.Instance.PosaljiZahtevVratiRezultat<Korisnik>(Common.Operation.LogIN, k);
+               
                     frmLogIn.DialogResult = DialogResult.OK;
                     MessageBox.Show($"Dobrodošli {k.Ime} {k.Prezime}");
-
-                }
-                else
-                {
-                    MessageBox.Show("Neuspešan LogIN,pokušjte ponovo");
-                }
-            }catch(SocketException  ex)
+            }catch(SystemOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(SocketException  ex)
             {
                 MessageBox.Show("Greška pri konektovanju na server, server nije pokrenut!");
             }

@@ -19,6 +19,10 @@ namespace SystemOperations
         {
             //Rezultat = broker.NadjiPrograme(kriterijum);
             Rezultat = repository.Pronadji(new Program(), kriterijum).OfType<Program>().ToList();
+            if (Rezultat.Count == 0)
+            {
+                Rezultat = null;
+            }
         }
     }
 }

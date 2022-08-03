@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Communication.cs" />
     <Compile Include="Exceptions\ServerCommunicationException.cs" />
+    <Compile Include="Exceptions\SystemOperationException.cs" />
     <Compile Include="FormaGrupa.cs">
       <SubType>Form</SubType>
     </Compile>

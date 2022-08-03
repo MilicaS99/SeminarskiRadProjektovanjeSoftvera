@@ -28,11 +28,11 @@ namespace Domain
         [Browsable(false)]
         public string UslovSpajanje => "p join Učenik u on u.UčenikID=p.UčenikID join Grupa g on g.GrupaID=p.GrupaID";
         [Browsable(false)]
-        public string UslovPretraga => "g.NazivGrupe=";
+        public string UslovPretraga => "g.NazivGrupe like ";
         [Browsable(false)]
         public string UslovIzmena => "";
         [Browsable(false)]
-        public string IdUbacenogObjekta => "";
+        public string IdUbacenogObjekta => "GrupaID";
         [Browsable(false)]
         public string PomocniUslov => "p.GrupaID=";
 

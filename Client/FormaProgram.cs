@@ -9,7 +9,6 @@ namespace Client
     {
         private ProgramController controller = new ProgramController();
 
-        /*BindingList<Domain.Program> listaprograma;*/
         public FormaProgram()
         {
             InitializeComponent();
@@ -92,6 +91,48 @@ namespace Client
         private void btnPrikaziProgram_Click(object sender, EventArgs e)
         {
             controller.prikaziProgram(this);
+        }
+
+    
+        private void txtKriterijum_Enter(object sender, EventArgs e)
+        {
+            controller.PrikaziPH(this);
+        }
+
+        private void txtKriterijum_Leave(object sender, EventArgs e)
+        {
+            controller.UkloniPH(this);
+        }
+
+        private void txtNaziv_Enter(object sender, EventArgs e)
+        {
+            controller.PrikaziPHnaziv(this);
+        }
+
+        private void richTextBoxOpis_Leave(object sender, EventArgs e)
+        {
+            controller.UkloniPHopis(this);
+          
+        }
+
+        private void richTextBoxOpis_Enter(object sender, EventArgs e)
+        {
+            controller.PrikaziPHopis(this);
+        }
+
+        private void txtNaziv_Leave(object sender, EventArgs e)
+        {
+            controller.UkloniPHnziv(this);
+        }
+
+        private void txtKriterijum_Click(object sender, EventArgs e)
+        {
+            controller.inicijalizujDGV(this);
+        }
+
+        private void txtKriterijum_TextChanged(object sender, EventArgs e)
+        {
+            controller.PretraziProgram(this);
         }
     }
 }

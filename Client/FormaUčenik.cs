@@ -86,25 +86,78 @@ namespace Client
          }*/
         #endregion region
 
-        private void btnPretrazi_Click(object sender, EventArgs e)
-        {
-            controller.Pretrazi(this);
-            #region pretraga
-            /*string kriterijum = "";
-            if (txtPretraga.Text != null)
-            {
-                string pokupljenkriterijum = txtPretraga.Text;
-                kriterijum = $"where Ime='{pokupljenkriterijum}'";
-                dataGridView1.DataSource = Communication.Instance.PretragaUčenika(kriterijum);
-
-
-            }*/
-            #endregion
-        }
+     
 
         private void button1_Click(object sender, EventArgs e)
         {
             controller.prikaziDetalje(this);
         }
+
+        private void txtIme_Enter(object sender, EventArgs e)
+        {
+            controller.prikaziImePH(this);
+        }
+
+        private void txtIme_Leave(object sender, EventArgs e)
+        {
+            controller.ukloniImePH(this);
+        }
+
+        private void txtPrezime_Enter(object sender, EventArgs e)
+        {
+            controller.prikatiPrezimePH(this);
+        }
+
+        private void txtPrezime_Leave(object sender, EventArgs e)
+        {
+            controller.ukloniPrezimePH(this);
+        }
+
+        private void txtDatumRodjenja_Enter(object sender, EventArgs e)
+        {
+            controller.prikaziDatumRodjenjaPH(this);
+        }
+
+        private void txtDatumRodjenja_Leave(object sender, EventArgs e)
+        {
+            controller.ukloniDatumRodjenjaPH(this);
+        }
+
+        private void txtPol_Enter(object sender, EventArgs e)
+        {
+            controller.prikaziPolPH(this);
+        }
+
+        private void txtPol_Leave(object sender, EventArgs e)
+        {
+            controller.ukloniPolPH(this);
+        }
+
+        private void txtKontaktRoditelja_Enter(object sender, EventArgs e)
+        {
+            controller.prikaziKontakRoditeljaPH(this);
+        }
+
+        private void txtKontaktRoditelja_Leave(object sender, EventArgs e)
+        {
+            controller.ukloniKontaktRoditeljaPH(this);
+        }
+
+       
+
+       
+
+        private void txtPretraga_Click(object sender, EventArgs e)
+        {
+            controller.InicijalitujDGV(this);
+        }
+
+        private void txtPretraga_TextChanged(object sender, EventArgs e)
+        {
+            controller.Pretrazi(this);
+        }
+
+
+      
     }
 }

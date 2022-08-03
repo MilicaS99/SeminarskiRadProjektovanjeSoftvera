@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-    public class ZapamtiIzmenjenogVaspitačaSO : SystemOperationBase
+    public class ZapamtiNovogVaspitaca : SystemOperationBase
     {
         private Vaspitač vaspitač;
 
-        public ZapamtiIzmenjenogVaspitačaSO(Vaspitač vaspitač)
+        public ZapamtiNovogVaspitaca(Vaspitač vaspitač)
         {
             this.vaspitač = vaspitač;
         }

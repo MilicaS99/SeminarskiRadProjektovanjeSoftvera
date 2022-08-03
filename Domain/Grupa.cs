@@ -17,6 +17,8 @@ namespace Domain
         public Uzrast Uzrast { get; set; }
         public Program Program { get; set; } 
         public Vaspitač Vaspitač { get; set; }
+
+        public List<Pohadjanje> listapohadjanja { get; set; } = new List<Pohadjanje>();
         [Browsable(false)]
         public string ImeTabele => "Grupa";
         [Browsable(false)]

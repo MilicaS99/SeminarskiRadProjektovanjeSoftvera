@@ -95,7 +95,7 @@ namespace Repository.GenericRepository
         {
             List<IDomainObject> listaobjekata = new List<IDomainObject>();
             SqlCommand command = broker.CreateCommand();
-            command.CommandText = $"select * from {obj.ImeTabele} {obj.UslovSpajanje} where ({obj.UslovPretraga} '{kriterijum}')";
+            command.CommandText = $"select * from {obj.ImeTabele} {obj.UslovSpajanje} where ({obj.UslovPretraga} '%{kriterijum}%')";
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
@@ -167,6 +167,13 @@ namespace Repository.GenericRepository
                 }
             }
             return listaobjekata;
+        }
+
+        public void Obrisi(IDomainObject obj)
+        {
+            SqlCommand command = broker.CreateCommand();
+            command.CommandText = $"delete from {obj.ImeTabele} where {obj.PomocniUslov}";
+            command.ExecuteNonQuery();
         }
     }
 }

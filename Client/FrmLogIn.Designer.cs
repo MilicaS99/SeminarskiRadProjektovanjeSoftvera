@@ -45,7 +45,7 @@ namespace Client
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(141, 101);
+            this.label1.Location = new System.Drawing.Point(168, 100);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 0;
@@ -57,7 +57,7 @@ namespace Client
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(150, 161);
+            this.label2.Location = new System.Drawing.Point(177, 160);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 1;
@@ -67,7 +67,9 @@ namespace Client
             // 
             this.txtKorisnickoIme.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtKorisnickoIme.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.txtKorisnickoIme.Location = new System.Drawing.Point(244, 94);
+            this.txtKorisnickoIme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKorisnickoIme.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtKorisnickoIme.Location = new System.Drawing.Point(271, 93);
             this.txtKorisnickoIme.Name = "txtKorisnickoIme";
             this.txtKorisnickoIme.Size = new System.Drawing.Size(190, 20);
             this.txtKorisnickoIme.TabIndex = 2;
@@ -76,7 +78,7 @@ namespace Client
             // 
             this.txtLozinka.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtLozinka.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.txtLozinka.Location = new System.Drawing.Point(244, 154);
+            this.txtLozinka.Location = new System.Drawing.Point(271, 153);
             this.txtLozinka.Name = "txtLozinka";
             this.txtLozinka.PasswordChar = '*';
             this.txtLozinka.Size = new System.Drawing.Size(190, 20);
@@ -88,7 +90,7 @@ namespace Client
             this.btnLogIn.BackColor = System.Drawing.SystemColors.Window;
             this.btnLogIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogIn.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnLogIn.Location = new System.Drawing.Point(262, 214);
+            this.btnLogIn.Location = new System.Drawing.Point(289, 213);
             this.btnLogIn.Name = "btnLogIn";
             this.btnLogIn.Size = new System.Drawing.Size(152, 37);
             this.btnLogIn.TabIndex = 4;
@@ -101,14 +103,14 @@ namespace Client
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(648, 379);
+            this.ClientSize = new System.Drawing.Size(702, 376);
             this.Controls.Add(this.btnLogIn);
             this.Controls.Add(this.txtLozinka);
             this.Controls.Add(this.txtKorisnickoIme);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FrmLogIn";
-            this.Text = "Form1";
+            this.Text = "FrmLogIn";
             this.ResumeLayout(false);
             this.PerformLayout();
 

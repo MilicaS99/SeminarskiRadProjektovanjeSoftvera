@@ -15,8 +15,7 @@ namespace Client
     public partial class FormaGrupa : Form
     {
         private GrupaController grupacontroller = new GrupaController();
-        //BindingList<Grupa> grupe;
-        //BindingList<Pohadjanje> pohadjanje;
+        
         public FormaGrupa()
         {
             InitializeComponent();
@@ -30,10 +29,6 @@ namespace Client
             #endregion
 
 
-           /* Timer t = new Timer();
-            t.Interval = 5000;
-            t.Tick += Osvezi;
-            t.Start();*/
         }
 
         private void Inicijalizuj()
@@ -41,71 +36,10 @@ namespace Client
             grupacontroller.Inicijalizuj(this);
         }
 
-        private void Osvezi(object sender, EventArgs e)
-        {
-            
-
-            grupacontroller.Osvezi(this);
-            /*
-            pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.VratiSvaPohadnja());
-            dgvGrupe.DataSource = pohadjanje;*/
-        }
+    
 
 
-        #region provera
-        /* private bool Provera()
-         {
-             bool ispravno = true;
-             if (string.IsNullOrEmpty(txtNaziv.Text))
-             {
-                 MessageBox.Show("Neophodno je uneti NAZIV GRUPE!");
-                 txtNaziv.BackColor = Color.Salmon;
-                 ispravno = false;
-             }
-
-             if (cbUzrast.SelectedItem == null)
-             {
-                 MessageBox.Show("Neophodno je izabrati UZRAST!");
-                 ispravno = false;
-             }
-
-             if (cbProgram.SelectedItem == null)
-             {
-                 MessageBox.Show("Neophodno je izabrati PROGRAM!");
-                 ispravno = false;
-             }
-
-
-             return ispravno;
-         }*/
-        #endregion
-
-        private void btnPretrai_Click(object sender, EventArgs e)
-        {
-            grupacontroller.Pretrazi(this);
-            #region pretraga
-            /*
-            string kriterijum = "";
-            if (string.IsNullOrEmpty(txtPretraga.Text) == true)
-            {
-                MessageBox.Show("Niste uneli kriterijum za pretragu!");
-                txtPretraga.BackColor = Color.Salmon;
-            }
-            else
-            {
-                string pretraga = txtPretraga.Text;
-                kriterijum = $"where g.NazivGrupe='{pretraga}'";
-               
-                pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.PretragaGrupa(kriterijum));
-                dgvPretraga.DataSource = pohadjanje;
-           
-
-            }*/
-            #endregion
-        }
-
-       // public Grupa izabranaGrupa { get; set; }
-       // public Pohadjanje  izabranoPohadjanje { get; set; }
+  
         private void btnPrikaziDetalje_Click(object sender, EventArgs e)
         {
 
@@ -250,31 +184,14 @@ namespace Client
             #endregion
         }
 
-        private void btnObrisiUcenika_Click(object sender, EventArgs e)
+        
+       private void btnObrisiUcenika_Click(object sender, EventArgs e)
         {
             grupacontroller.ObrisiUcenika(this);
-            #region obrisi ucenika
-            /*obrisiucenika
-            if (dgvGrupe.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Niste odabrali učenika!");
-                return;
-            }
-
-            Domain.Pohadjanje p = (Domain.Pohadjanje)dgvGrupe.SelectedRows[0].DataBoundItem;
-            pohadjanje.Remove(p);
-
-            if (Communication.Instance.ObrisiUcenikaIzGrupe(p))
-            {
-                MessageBox.Show($"Učenik {p.Učenik} više ne pohadja grupu {p.Grupa}.");
-            }
-            else
-            {
-                MessageBox.Show("Greska pri uklanjanju učenika iz grupe!");
-            }*/
-            #endregion
+        
         }
-
+    
+    
 
         private void cbProgram_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -299,6 +216,51 @@ namespace Client
             grupacontroller.ResetujDataGridPrikazPretraga(this);
         }
 
-     
+        private void txtNaziv_Enter(object sender, EventArgs e)
+        {
+            grupacontroller.UnosNazivaGrupeEvent(this);
+        }
+
+        private void txtNaziv_Leave(object sender, EventArgs e)
+        {
+            grupacontroller.NapustanjePoljaNazivaGrupe(this);
+        }
+
+        private void txtDatumOD_Enter(object sender, EventArgs e)
+        {
+            grupacontroller.UnosDatumOdEvent(this);
+        }
+
+        private void txtDatumOD_Leave(object sender, EventArgs e)
+        {
+            grupacontroller.NapustanjePoljaDatumODevent(this);
+        }
+
+        private void txtPretraga_Enter(object sender, EventArgs e)
+        {
+            grupacontroller.UnosPretrageEvent(this);
+        }
+
+        private void txtPretraga_Leave(object sender, EventArgs e)
+        {
+            grupacontroller.NapustanjePretrageEvent(this);
+        }
+
+        private void txtDatumDO_Enter(object sender, EventArgs e)
+        {
+
+            grupacontroller.UnosDatumaDO(this);
+
+        }
+
+        private void txtDatumDO_Leave(object sender, EventArgs e)
+        {
+            grupacontroller.NapustanjeDatumaDOevent(this);
+        }
+
+        private void txtPretraga_TextChanged(object sender, EventArgs e)
+        {
+            grupacontroller.Pretrazi(this);
+        }
     }
 }

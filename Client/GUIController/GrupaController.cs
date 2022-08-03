@@ -1,8 +1,10 @@
-﻿using Domain;
+﻿using Client.Exceptions;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -17,57 +19,64 @@ namespace Client.GUIController
 
         internal void Inicijalizuj(FormaGrupa formaGrupa)
         {
-            formaGrupa.CbUzrast.DataSource = Communication.Instance.VratiSveUzraste();
-            formaGrupa.CbProgram.DataSource  = Communication.Instance.VratiListuPrograma();
-            formaGrupa.CbVaspitač.DataSource  = Communication.Instance.VratiSveVaspitače();
-            formaGrupa.CbUčenik.DataSource= Communication.Instance.VratiListuUčenika();
-            pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.VratiSvaPohadnja());
+            
+            formaGrupa.CbUzrast.DataSource = Communication.Instance.PosaljiZahtevVratiRezultat<Array>(Common.Operation.UčitajListuUzrasta);
+
+            
+            formaGrupa.CbProgram.DataSource = Communication.Instance.PosaljiZahtevVratiRezultat<List<Domain.Program>>(Common.Operation.UčitajListuPrograma);
+           
+            formaGrupa.CbVaspitač.DataSource = Communication.Instance.PosaljiZahtevVratiRezultat<List<Vaspitač>>(Common.Operation.UčitajListuVaspitača);
+          
+            formaGrupa.CbUčenik.DataSource = Communication.Instance.PosaljiZahtevVratiRezultat<List<Učenik>>(Common.Operation.UčitajListuUčenika);
+           
+            pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.PosaljiZahtevVratiRezultat<List<Pohadjanje>>(Common.Operation.VratiPohadjanja));
             formaGrupa.DgvGrupe.DataSource = pohadjanje;
             formaGrupa.DgvDodatiUcenici.DataSource = pohadjanja;
             formaGrupa.DgvDodatiUcenici.Columns["Grupa"].Visible = false;
-           
-            //formaGrupa.DgvDodatiUcenici.Columns[0].Visible = false;
 
-            //formaGrupa.DgvDodatiUcenici.Columns["Učenik"].HeaderText = "Dodati učenici";
+       
 
-           // formaGrupa.DgvDodatiUcenici.Columns["Učenik"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+         
 
         }
 
       
 
-        internal void Osvezi(FormaGrupa formaGrupa)
+       /* internal void Osvezi(FormaGrupa formaGrupa)
         {
             pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.VratiSvaPohadnja());
            formaGrupa.DgvGrupe.DataSource = pohadjanje;
-        }
+        }*/
 
         internal void Pretrazi(FormaGrupa formaGrupa)
         {
+           
             string kriterijum = "";
-            if (string.IsNullOrEmpty(formaGrupa.TxtPretraga.Text) == true)
-            {
-                MessageBox.Show("Niste uneli kriterijum za pretragu!");
-                formaGrupa.TxtPretraga.BackColor = Color.Salmon;
-            }
-            else
-            {
-                string pretraga = formaGrupa.TxtPretraga.Text;
-                //kriterijum = $"where g.NazivGrupe='{pretraga}'";
+            string pretraga = formaGrupa.TxtPretraga.Text;
+             
                 kriterijum = pretraga;
-                pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.PretragaGrupa(kriterijum));
-               formaGrupa.DgvGrupe.DataSource  = pohadjanje;
-                formaGrupa.TxtPretraga.Text = null;
-
-
+            try
+            {
+                //pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.PretragaGrupa(kriterijum));
+                pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.PosaljiZahtevVratiRezultat<List<Pohadjanje>>(Common.Operation.NadjiGrupe,kriterijum));
+                //System.Windows.Forms.MessageBox.Show("Sistem je našao grupe po zadatoj vrednosti!");
             }
+            catch (SystemOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+               formaGrupa.DgvGrupe.DataSource  = pohadjanje;
+               
+
+
+            
         }
         public Grupa izabranaGrupa { get; set; }
         public Pohadjanje izabranoPohadjanje { get; set; }
         public List<object> listaobjekata { get; set; }
         internal void prikaziDetaljnije(FormaGrupa formaGrupa)
         {
-            formaGrupa.BtnZapamtiGrupu.Enabled = false;
+            
             if (formaGrupa.DgvGrupe.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Niste izabrali željenu grupu!");
@@ -75,21 +84,24 @@ namespace Client.GUIController
             }
             izabranoPohadjanje = (Pohadjanje)formaGrupa.DgvGrupe.SelectedRows[0].DataBoundItem;
 
-            //izabranaGrupa = Communication.Instance.VratiTrazenuGrupu(izabranoPohadjanje.Grupa);
-            listaobjekata= Communication.Instance.VratiTrazenuGrupu(izabranoPohadjanje.Grupa);
-            izabranaGrupa =(Grupa) listaobjekata[0];
-            //formaGrupa.TxtNaziv.Text = izabranoPohadjanje.Grupa.NazivGrupe;
+            try
+            {
+                //izabranaGrupa = Communication.Instance.UcitajGrupu(izabranoPohadjanje.Grupa);
+                izabranaGrupa = Communication.Instance.PosaljiZahtevVratiRezultat<Grupa>(Common.Operation.VratiTrazenuGrupu,izabranoPohadjanje.Grupa);
+            }catch(SystemOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+       
+          
+            
             formaGrupa.TxtNaziv.Text = izabranaGrupa.NazivGrupe;
-            //formaGrupa.CbUzrast.SelectedItem = izabranaGrupa.Uzrast;
+         
             formaGrupa.CbProgram.SelectedItem = izabranaGrupa.Program;
             formaGrupa.CbVaspitač.SelectedItem = izabranaGrupa.Vaspitač;
 
-            /* formaGrupa.CbUčenik.SelectedItem = izabranoPohadjanje.Učenik;
-             formaGrupa.TxtDatumOD.Text = izabranoPohadjanje.DatumOd.ToString();
-             formaGrupa.TxtDatumDO.Text = izabranoPohadjanje.DatumDo.ToString();*/
-            //formaGrupa.DgvDodatiUcenici.DataSource = new BindingList<Pohadjanje>((List<Pohadjanje>)listaobjekata[1]);
-
-            pohadjanja = new BindingList<Pohadjanje>((List<Pohadjanje>)listaobjekata[1]);
+       
+            pohadjanja = new BindingList<Pohadjanje>(izabranaGrupa.listapohadjanja);
 
             formaGrupa.DgvDodatiUcenici.DataSource = pohadjanja;
         }
@@ -107,16 +119,19 @@ namespace Client.GUIController
             izabranaGrupa.Program = (Domain.Program)formaGrupa.CbProgram.SelectedItem;
             izabranaGrupa.Vaspitač = (Vaspitač)formaGrupa.CbVaspitač.SelectedItem;
             formaGrupa.DgvGrupe.Refresh();
-          
-            
-            if (Communication.Instance.SacuvajNovuGrupu(izabranaGrupa, pohadjanja.ToList()) == true)
+            izabranaGrupa.listapohadjanja = pohadjanja.ToList();
+
+            try
             {
+                Communication.Instance.PosaljiZahtevBezRezultata(Common.Operation.ZapamtiNovuGrupu, izabranaGrupa);
                 MessageBox.Show("Sistem je zapamtio novu grupu!");
             }
-            else
+            catch(SystemOperationException ex)
             {
-                MessageBox.Show("Sistem ne može da zapamti novu grupu!");
+                MessageBox.Show(ex.Message);
             }
+            
+         
 
             formaGrupa.BtnZapamtiNovuGrupu.Enabled = true;
         }
@@ -161,16 +176,19 @@ namespace Client.GUIController
             grupa.Uzrast = (Uzrast)formaGrupa.CbUzrast.SelectedItem;
             grupa.Program = (Domain.Program)formaGrupa.CbProgram.SelectedItem;
             grupa.Vaspitač = (Domain.Vaspitač)formaGrupa.CbVaspitač.SelectedItem;
+            grupa.listapohadjanja = pohadjanja.ToList();
 
-
-            if (Communication.Instance.SacuvajGrupu(grupa, pohadjanja.ToList()) == true)
+            try
             {
+                Communication.Instance.PosaljiZahtevBezRezultata(Common.Operation.ZapamtiGrupu, grupa);
                 MessageBox.Show($"{grupa.NazivGrupe}, Sistem je zapamtio grupu!");
             }
-            else
+            catch(SystemOperationException ex)
             {
-                MessageBox.Show("Sistem ne može da zapamti grupu!");
+                MessageBox.Show(ex.Message);
             }
+
+         
 
             formaGrupa.TxtNaziv.Text = null;
             formaGrupa.TxtDatumOD.Text = null;
@@ -194,15 +212,7 @@ namespace Client.GUIController
             pohadjanja.Add(p);
             MessageBox.Show($"Dodali ste učenika {p.Učenik.Ime} {p.Učenik.Prezime}");
 
-           // formaGrupa.DgvDodatiUcenici.DataSource = pohadjanja;
-          /*  formaGrupa.DgvDodatiUcenici.Columns["Grupa"].Visible = false;
-            formaGrupa.DgvDodatiUcenici.Columns["DatumOd"].Visible = false;
-            formaGrupa.DgvDodatiUcenici.Columns["DatumDo"].Visible = false;
-            formaGrupa.DgvDodatiUcenici.Columns[0].Visible = false;
-
-            formaGrupa.DgvDodatiUcenici.Columns["Učenik"].HeaderText = "Dodati učenici";
-
-            formaGrupa.DgvDodatiUcenici.Columns["Učenik"].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;*/
+        
 
         }
 
@@ -216,13 +226,18 @@ namespace Client.GUIController
                 ispravno = false;
             }
 
-            if (string.IsNullOrEmpty(formaGrupa.TxtDatumOD.Text))
+            if (!DateTime.TryParseExact(formaGrupa.TxtDatumOD.Text, "dd.MM.yyyy.", null, DateTimeStyles.None, out _))
             {
-                MessageBox.Show("Niste unelili DATUMOD!");
+                MessageBox.Show("Datum nije u dobrom formatu!");
                 formaGrupa.TxtDatumOD.BackColor = Color.Salmon;
                 ispravno = false;
             }
-
+            if (!DateTime.TryParseExact(formaGrupa.TxtDatumDO.Text, "dd.MM.yyyy.", null, DateTimeStyles.None, out _))
+            {
+                MessageBox.Show("Datum nije u dobrom formatu!");
+                formaGrupa.TxtDatumDO.BackColor = Color.Salmon;
+                ispravno = false;
+            }
 
             if (string.IsNullOrEmpty(formaGrupa.TxtDatumDO.Text))
             {
@@ -237,28 +252,88 @@ namespace Client.GUIController
 
         internal void ObrisiUcenika(FormaGrupa formaGrupa)
         {
-            if (formaGrupa.DgvGrupe.SelectedRows.Count==0d)
+            if (formaGrupa.DgvDodatiUcenici.SelectedRows.Count==0)
             {
                 MessageBox.Show("Niste odabrali učenika!");
                 return;
             }
 
-            Domain.Pohadjanje p = (Domain.Pohadjanje)formaGrupa.DgvGrupe.SelectedRows[0].DataBoundItem;
-            pohadjanje.Remove(p);
+            Domain.Pohadjanje p = (Domain.Pohadjanje)formaGrupa.DgvDodatiUcenici.SelectedRows[0].DataBoundItem;
+            pohadjanja.Remove(p);
+           
+           
 
-            if (Communication.Instance.ObrisiUcenikaIzGrupe(p))
+        
+        }
+
+        internal void NapustanjePoljaNazivaGrupe(FormaGrupa formaGrupa)
+        {
+            if (formaGrupa.TxtNaziv.Text == "")
             {
-                MessageBox.Show($"Učenik {p.Učenik} više ne pohadja grupu {p.Grupa}.");
+                formaGrupa.TxtNaziv.Text = "Naziv grupe";
             }
-            else
+        }
+
+        internal void NapustanjePoljaDatumODevent(FormaGrupa formaGrupa)
+        {
+            if (formaGrupa.TxtDatumOD.Text == "")
             {
-                MessageBox.Show("Greska pri uklanjanju učenika iz grupe!");
+                formaGrupa.TxtDatumOD.Text = "dd.MM.yyyy.";
+            }
+        }
+
+        internal void UnosPretrageEvent(FormaGrupa formaGrupa)
+        {
+            if (formaGrupa.TxtPretraga.Text == "Naziv grupe")
+            {
+                formaGrupa.TxtPretraga.Text = "";
+            }
+        }
+
+        internal void UnosDatumaDO(FormaGrupa formaGrupa)
+        {
+            if (formaGrupa.TxtDatumDO.Text == "dd.MM.yyyy.")
+            {
+                formaGrupa.TxtDatumDO.Text = "";
+            }
+        }
+
+        internal void NapustanjeDatumaDOevent(FormaGrupa formaGrupa)
+        {
+            if (formaGrupa.TxtDatumDO.Text == "")
+            {
+                formaGrupa.TxtDatumDO.Text = "dd.MM.yyyy.";
+            }
+        }
+
+        internal void NapustanjePretrageEvent(FormaGrupa formaGrupa)
+        {
+           if(formaGrupa.TxtPretraga.Text=="Naziv grupe")
+            {
+                formaGrupa.TxtPretraga.Text = "";
+            }
+        }
+
+        internal void UnosDatumOdEvent(FormaGrupa formaGrupa)
+        {
+            if (formaGrupa.TxtDatumOD.Text == "dd.MM.yyyy.")
+            {
+                formaGrupa.TxtDatumOD.Text = "";
+            }
+        }
+
+        internal void UnosNazivaGrupeEvent(FormaGrupa formaGrupa)
+        {
+            if(formaGrupa.TxtNaziv.Text=="Naziv grupe")
+            {
+                formaGrupa.TxtNaziv.Text = "";
             }
         }
 
         internal void VaspitaciNaProgramu(FormaGrupa formaGrupa)
         {
-           formaGrupa.CbVaspitač.DataSource = Communication.Instance.VratiVaspitačeNaProgramu(formaGrupa.CbProgram.SelectedItem as Domain.Program);
+            //formaGrupa.CbVaspitač.DataSource = Communication.Instance.VratiVaspitačeNaProgramu(formaGrupa.CbProgram.SelectedItem as Domain.Program);
+            formaGrupa.CbVaspitač.DataSource = Communication.Instance.PosaljiZahtevVratiRezultat<List<Vaspitač>>(Common.Operation.VratiVaspitačeNaProgramu,(formaGrupa.CbProgram.SelectedItem as Domain.Program));
         }
 
         internal void ResetujDatume(FormaGrupa formaGrupa)
@@ -270,7 +345,8 @@ namespace Client.GUIController
 
         internal void ResetujDataGridPrikazPretraga(FormaGrupa formaGrupa)
         {
-            pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.VratiSvaPohadnja());
+            //pohadjanje = new BindingList<Pohadjanje>(Communication.Instance.VratiSvaPohadnja());
+            pohadjanje= new BindingList<Pohadjanje>(Communication.Instance.PosaljiZahtevVratiRezultat<List<Pohadjanje>>(Common.Operation.VratiPohadjanja));
             formaGrupa.DgvGrupe.DataSource = pohadjanje;
         }
     }

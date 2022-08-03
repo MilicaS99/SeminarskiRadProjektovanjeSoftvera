@@ -27,18 +27,15 @@ namespace Common
         zapamtiNovogVaspitača,
         UčitajListuUzrasta,
         VratiListuVaspitača,
-        VratiSveGrupe,
         ZapamtiNovuGrupu,
-        ZapamtiPohadjanje,
         EndCommunication,
         VratiPohadjanja,
-        PostojiVaspitač,
         VratiTrazenuGrupu,
-        ObrišiUčenikaizGrupe,
         VratiVaspitačeNaProgramu,
         UcitajVaspitaca,
         UcitajUcenika,
-        UcitajProgram
+        UcitajProgram,
+        ObisiVaspitaca
     }
     [Serializable]
     public class Message
@@ -48,7 +45,9 @@ namespace Common
         public object messageRequest { get; set; }
         public object messageResponse { get; set; }
 
-        public  bool  isSuccesfull { get; set; }
+        public bool isSuccesfull { get; set; } = true;
         public Operation Operation { get; set; }
+
+        public string ClientMessage { get; set; }
     }
 }

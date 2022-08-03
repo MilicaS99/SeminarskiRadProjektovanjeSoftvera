@@ -24,11 +24,11 @@ namespace Domain
         [Browsable(false)]
         public string UslovSpajanje => "";
         [Browsable(false)]
-        public string UslovPretraga => "Naziv=";
+        public string UslovPretraga => "Naziv like";
         [Browsable(false)]
         public string UslovIzmena => "";
         [Browsable(false)]
-        public string  IdUbacenogObjekta => "";
+        public string  IdUbacenogObjekta => "ProgramID";
         [Browsable(false)]
         public string PomocniUslov => "";
 

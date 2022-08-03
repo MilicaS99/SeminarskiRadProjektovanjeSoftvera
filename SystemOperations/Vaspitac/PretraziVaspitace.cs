@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-    public class PretraziVaspitacaSO:SystemOperationBase
+    public class PretraziVaspitace:SystemOperationBase
     {
         private readonly string kriterijum;
         
         public List<Vaspitač> Rezultat { get; set; }
-        public PretraziVaspitacaSO(string kriterijum)
+        public PretraziVaspitace(string kriterijum)
         {
             this.kriterijum = kriterijum;
         }
@@ -21,6 +21,11 @@ namespace SystemOperations
         {
             // Rezultat = broker.VratiVaspitačePoKriterijumu(kriterijum);
             Rezultat = repository.Pronadji(new Vaspitač(), kriterijum).OfType<Vaspitač>().ToList();
+
+            if (Rezultat.Count == 0)
+            {
+                Rezultat = null;
+            }
         }
     }
 }

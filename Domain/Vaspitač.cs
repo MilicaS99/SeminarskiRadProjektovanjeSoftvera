@@ -29,7 +29,7 @@ namespace Domain
         [Browsable(false)]
         public string UslovSpajanje => "v join Program p on p.ProgramID=v.ProgramID";
         [Browsable(false)]
-        public string UslovPretraga => "p.Naziv=";
+        public string UslovPretraga => "p.Naziv like";
         [Browsable(false)]
         public string UslovIzmena => $"Kontakt = '{Kontakt}', ProgramID = '{Program.ProgramID}' ";
         [Browsable(false)]

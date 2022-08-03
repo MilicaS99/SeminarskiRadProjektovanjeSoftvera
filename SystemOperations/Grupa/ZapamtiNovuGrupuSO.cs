@@ -7,26 +7,32 @@ namespace SystemOperations
     {
         private List<object> objektiZaCuvanje;
         private List<Pohadjanje> pohadjanja;
+        private Grupa grupa;
 
-        public ZapamtiNovuGrupuSO(List<object> objektiZaCuvanje)
+       /* public ZapamtiNovuGrupuSO(List<object> objektiZaCuvanje)
         {
             this.objektiZaCuvanje = objektiZaCuvanje;
+        }
+       */
+        public ZapamtiNovuGrupuSO(Grupa grupa)
+        {
+            this.grupa = grupa;
         }
 
         protected override void Execute()
         {
             
-            Grupa grupa =(Grupa) objektiZaCuvanje[0];
+           // Grupa grupa =(Grupa) objektiZaCuvanje[0];
             //broker.ZapamtiNovuGrupu(grupa);
             repository.Izmeni(grupa);
             repository.Obrisi(new Pohadjanje (),grupa.GrupaID);
-            pohadjanja = objektiZaCuvanje[1] as List<Pohadjanje>;
+            pohadjanja = grupa.listapohadjanja as List<Pohadjanje>;
             foreach (Pohadjanje p in pohadjanja)
             {
                 p.Grupa = new Grupa();
                 p.Grupa.GrupaID = grupa.GrupaID;
                 //broker.ZapamtiPohadjanje(p);
-                repository.Dodaj(p);
+                int idgrupe = repository.DodajSaVracanjem(p);
             }
             
         }

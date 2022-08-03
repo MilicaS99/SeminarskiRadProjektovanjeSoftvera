@@ -97,7 +97,7 @@ namespace Client
             this.Controls.Add(this.btnProgram);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.Name = "FrmMain";
-            this.Text = "FrmMain";
+            this.Text = "Vrtic Kreativno Pero";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMain_FormClosed);
             this.ResumeLayout(false);

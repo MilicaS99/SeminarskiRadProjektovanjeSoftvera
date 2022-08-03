@@ -10,8 +10,8 @@ namespace SystemOperations
     public class UčitajGrupuSO : SystemOperationBase
     {
         private Grupa grupa;
-        private Grupa nagrupa;
-        public List<object> nadjenaGrupa { get; set; } = new List<object>();
+        public Grupa nađenagrupa { get; set; }
+        //private List<Grupa> nadjenaGrupa { get; set; }
         public List<Pohadjanje> pohadjanja { get; set; }
         public UčitajGrupuSO(Grupa grupa)
         {
@@ -21,11 +21,13 @@ namespace SystemOperations
         protected override void Execute()
         {
             //nadjenaGrupa = broker.UčitajGrupe(grupa);
-            nagrupa = (Grupa)repository.VratiSamoJedan(grupa);
+            nađenagrupa = (Grupa)repository.VratiSamoJedan(grupa);
             pohadjanja = repository.PronadjiOdredjene(new Pohadjanje(), grupa.GrupaID).OfType<Pohadjanje>().ToList();
 
-            nadjenaGrupa.Add(nagrupa);
-            nadjenaGrupa.Add(pohadjanja);
+            nađenagrupa.listapohadjanja = pohadjanja;
+            
+            //nadjenaGrupa.Add(nagrupa);
+            //nadjenaGrupa.Add(pohadjanja);
         }
     }
 }

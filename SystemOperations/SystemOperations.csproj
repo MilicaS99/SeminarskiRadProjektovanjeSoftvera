@@ -43,10 +43,10 @@
   <ItemGroup>
     <Compile Include="LoginSO.cs" />
     <Compile Include="Grupa\NadjiGrupeSO.cs" />
+    <Compile Include="ObrisiVaspitaca.cs" />
     <Compile Include="Program\NadjiProgrameSO.cs" />
     <Compile Include="Ucenik\PretraziUcenikeSO.cs" />
-    <Compile Include="Vaspitac\PretraziVaspitacaSO.cs" />
-    <Compile Include="Ucenik\ObrisiUcenikaIzGrupeSO.cs" />
+    <Compile Include="Vaspitac\PretraziVaspitace.cs" />
     <Compile Include="Program\UcitajProgramSO.cs" />
     <Compile Include="Ucenik\UcitajUcenikaSO.cs" />
     <Compile Include="Vaspitac\UcitajVaspitacaSO.cs" />
@@ -57,7 +57,7 @@
     <Compile Include="VratiPohadjanjaSO.cs" />
     <Compile Include="Vaspitac\VratiVaspitačeNaProgramuSO.cs" />
     <Compile Include="Grupa\ZapamtiGrupuSO.cs" />
-    <Compile Include="Vaspitac\ZapamtiIzmenjenogVaspitačaSO.cs" />
+    <Compile Include="Vaspitac\ZapamtiNovogVaspitaca.cs" />
     <Compile Include="Grupa\ZapamtiNovuGrupuSO.cs" />
     <Compile Include="Program\ZapamtiProgramSO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

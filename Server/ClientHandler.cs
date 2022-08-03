@@ -65,10 +65,19 @@ namespace Server
                 case Operation.LogIN:
                     response.Operation = Operation.LogIN;
                     response.messageResponse = Controller.Instance.LogIN(messagerequest.messageRequest as Korisnik);
+                    if (response.messageResponse == null)
+                    {
+                        response.ClientMessage = "Neuspešan LogIN, pokušjte ponovo";
+                        response.isSuccesfull = false;
+                    }
                     break;
                 case Operation.ZapamtiProgram:
                     response.Operation = Operation.ZapamtiProgram;
                     response.isSuccesfull = Controller.Instance.ZapamtiProgram(messagerequest.messageRequest as Domain.Program);
+                    if (!response.isSuccesfull)
+                    {
+                        response.ClientMessage = "Sistem ne može da zapamti program";
+                    }
                     break;
                 case Operation.NadjiPrograme:
                     response.Operation = Operation.NadjiPrograme;
@@ -76,37 +85,46 @@ namespace Server
                     if (response.messageResponse == null)
                     {
                         response.isSuccesfull = false;
+                        response.ClientMessage = "Sistem ne može da nadje programe po zadatoj vrednosti!";
                     }
-                    else
-                    {
-                        response.isSuccesfull = true;
-                    }
+                    
                     break;
                 case Operation.UčitajListuPrograma:
                     response.messageResponse = Controller.Instance.VratiListuPrograma();
                     break;
                 case Operation.ZapamtiVaspitača:
                     response.isSuccesfull = Controller.Instance.ZapamtiVaspitaca(messagerequest.messageRequest as Vaspitač);
+                    if (!response.isSuccesfull)
+                    {
+                        response.ClientMessage = "Sistem ne moze da zapamti vaspitaca!";
+                    }
                     break;
                 case Operation.ZapamtiUčenika:
                     response.isSuccesfull = Controller.Instance.ZapamtiUčenika(messagerequest.messageRequest as Učenik);
+                    if (!response.isSuccesfull)
+                    {
+                        response.ClientMessage = "Sistem ne može da zapamti unetog učenika!";
+                    }
                     break;
                 case Operation.UčitajListuVaspitača:
                     response.messageResponse = Controller.Instance.VratiListuVaspitaca();
                     break;
                 case Operation.PretražiVaspitača:
-                    response.messageResponse = Controller.Instance.PretraziVaspitaca(messagerequest.messageRequest as string);
+                    response.messageResponse = Controller.Instance.PretraziVaspitace(messagerequest.messageRequest as string);
                     if (response.messageResponse == null)
                     {
                         response.isSuccesfull = false;
+                        response.ClientMessage = "Sistem ne može da nadje vaspitače po zadatoj vrednosti!";
                     }
-                    else
-                    {
-                        response.isSuccesfull = true;
-                    }
+                
                     break;
                 case Operation.zapamtiNovogVaspitača:
-                    response.isSuccesfull = Controller.Instance.ZapamtiIzmenjenogVaspitača(messagerequest.messageRequest as Vaspitač);
+                    response.isSuccesfull = Controller.Instance.ZapamtiNovogVaspitaca(messagerequest.messageRequest as Vaspitač);
+                    if (!response.isSuccesfull)
+                    {
+                        response.ClientMessage = "Sistem ne može da zapamti izmenjenog vaspitača!";
+                    }
+                   
                     break;
                 case Operation.UčitajListuUčenika:
                     response.messageResponse = Controller.Instance.VratiListuUčenika();
@@ -116,50 +134,87 @@ namespace Server
                     if (response.messageResponse == null)
                     {
                         response.isSuccesfull = false;
+                        response.ClientMessage = "Sistem ne moze da nadje ucenike po zadatoj vrednosti!";
                     }
-                    else
-                    {
-                        response.isSuccesfull = true;
-                    }
+                  
                     break;
                 case Operation.UčitajListuUzrasta:
                     response.messageResponse = Controller.Instance.VratiListuUzrasta();
                     break;
                 case Operation.ZapamtiGrupu:
-                    response.isSuccesfull = Controller.Instance.ZapamtiGrupu(messagerequest.messageRequest as List<object>);
+                    response.isSuccesfull = Controller.Instance.ZapamtiGrupu(messagerequest.messageRequest as   Grupa);
+                    if (!response.isSuccesfull)
+                    {
+                        response.ClientMessage = "Sistem ne može da zapamti grupu!";
+                    }
                     break;
-               // case Operation.VratiSveGrupe:
-                  //  response.messageResponse = Controller.Instance.VratiSveGrupe();
-                 //   break;
+              
                 case Operation.NadjiGrupe:
                     response.messageResponse = Controller.Instance.NadjiGrupe(messagerequest.messageRequest as string);
+                    if (response.messageResponse == null)
+                    {
+                        response.isSuccesfull = false;
+                        response.ClientMessage = "Sistem ne može da nadje grupe po zadatoj vrednosti!";
+                    }
                   
                     break;
                 case Operation.ZapamtiNovuGrupu:
-                    response.isSuccesfull = Controller.Instance.ZapamtiNovuGrupu(messagerequest.messageRequest as List<object>);
+                    response.isSuccesfull = Controller.Instance.ZapamtiNovuGrupu(messagerequest.messageRequest as Grupa);
+                    if (!response.isSuccesfull)
+                    {
+                        response.ClientMessage = "Sistem ne može da zapamti novu grupu!";
+                    }
                     break;
             
                 case Operation.VratiPohadjanja:
-                   response.messageResponse = Controller.Instance.VratiPohadjanja();
+                   response.messageResponse = Controller.Instance.VratiSvaPohadjanja();
                     break;
                 
                 case Operation.VratiTrazenuGrupu:
                     response.messageResponse = Controller.Instance.UcitajGrupu(messagerequest.messageRequest as Grupa);
+                    if (response.messageResponse == null)
+                    {
+                        response.ClientMessage = "Sistem ne može da učita grupu!";
+                        response.isSuccesfull = false;
+                    }
+
                     break;
-                case Operation.ObrišiUčenikaizGrupe:
-                    response.isSuccesfull = Controller.Instance.ObrisiUcenikaIzGrupe(messagerequest.messageRequest as Pohadjanje);
-                    break;
+              
                 case Operation.VratiVaspitačeNaProgramu:
                     response.messageResponse = Controller.Instance.VratiVaspitaceNaProgramu(messagerequest.messageRequest as Domain.Program);
                     break;
                 case Operation.UcitajVaspitaca:
                     response.messageResponse = Controller.Instance.UcitajVaspitaca(messagerequest.messageRequest as Vaspitač);
+                    if (response.messageResponse == null)
+                    {
+                        response.ClientMessage = "Sistem ne može da učita vaspitaca!";
+                        response.isSuccesfull = false;
+                    }
+
                     break;
                 case Operation.UcitajUcenika:
                     response.messageResponse = Controller.Instance.UcitajUcenika(messagerequest.messageRequest as Učenik);
+                    if (response.messageResponse == null)
+                    {
+                        response.ClientMessage = "Sistem ne može da učita učenika!";
+                        response.isSuccesfull = false;
+                    }
                     break;
                 case Operation.UcitajProgram:
                     response.messageResponse = Controller.Instance.UcitajProgram(messagerequest.messageRequest as Domain.Program);
+                    if (response.messageResponse == null)
+                    {
+                        response.ClientMessage = "Sistem ne može da učita program!";
+                        response.isSuccesfull = false;
+
+                    }
+                    break;
+                case Operation.ObisiVaspitaca:
+                    response.isSuccesfull = Controller.Instance.ObrisiVaspitaca(messagerequest.messageRequest as Vaspitač);
+                    if (!response.isSuccesfull)
+                    {
+                        response.ClientMessage = "Sistem ne može da obrise vaspitaca";
+                    }
                     break;
                /* case Operation.EndCommunication:
                     kraj = true;
@@ -180,6 +235,7 @@ namespace Server
                     
                     clientSocket.Shutdown(SocketShutdown.Both);
                     clientSocket.Dispose();
+                    
                     clientSocket = null;
                     OdjavljenKlijent?.Invoke(this, EventArgs.Empty);//?/provera da li j enull
                 }

@@ -18,6 +18,7 @@ namespace Repository.GenericRepository
         void Dodaj(T obj);
         int DodajSaVracanjem(T obj);
         void Obrisi(T obj,int kriterijum);
+        void Obrisi(T obj);
         void Izmeni(T obj);
         void IzmeniOdredjene(T obj);
         List<T> Pronadji(T obj,string kriterijum);

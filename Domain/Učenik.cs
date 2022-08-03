@@ -28,11 +28,11 @@ namespace Domain
         [Browsable(false)]
         public string UslovSpajanje => "";
         [Browsable(false)]
-        public string UslovPretraga => "Ime =";
+        public string UslovPretraga => "Ime+' '+Prezime like";
         [Browsable(false)]
         public string UslovIzmena => "";
         [Browsable(false)]
-        public string IdUbacenogObjekta => "";
+        public string IdUbacenogObjekta => "UčenikID";
         [Browsable(false)]
         public string PomocniUslov => "";
 

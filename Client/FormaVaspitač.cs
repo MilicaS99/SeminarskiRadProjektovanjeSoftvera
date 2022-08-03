@@ -174,6 +174,65 @@ namespace Client
             #endregion
         }
 
+        private void txtIme_Enter(object sender, EventArgs e)
+        {
+            vaspitackontroler.dodajPHime(this);
+        }
+
+        private void txtIme_Leave(object sender, EventArgs e)
+        {
+            vaspitackontroler.skloniPHime(this);
+        }
+
+        private void txtPrezime_Enter(object sender, EventArgs e)
+        {
+            vaspitackontroler.dodajPHprezime(this);
+        }
+
+        private void txtPrezime_Leave(object sender, EventArgs e)
+        {
+            vaspitackontroler.skloniPHprezime(this);
+        }
+
+        private void txtPol_Enter(object sender, EventArgs e)
+        {
+            vaspitackontroler.dodajPHpol(this);
+        }
+
+        private void txtPol_Leave(object sender, EventArgs e)
+        {
+            vaspitackontroler.skloniPHpol(this);
+        }
+
+        private void txtKontakt_Enter(object sender, EventArgs e)
+        {
+            vaspitackontroler.dodajPHkontakttelefon(this);
+        }
+
+        private void txtKontakt_Leave(object sender, EventArgs e)
+        {
+            vaspitackontroler.skloniPHkonakttelefn(this);
+        }
+
+        private void txtPretraga_Enter(object sender, EventArgs e)
+        {
+            vaspitackontroler.dodajphUnesiteProgram(this);
+        }
+
+        private void txtPretraga_Leave(object sender, EventArgs e)
+        {
+            vaspitackontroler.skloniPHunesiteProgram(this);
+        }
+
+        private void txtPretraga_Click(object sender, EventArgs e)
+        {
+            vaspitackontroler.InicijalizujDGV(this);
+        }
+
+        private void btnobrisivaspitaca_Click(object sender, EventArgs e)
+        {
+            vaspitackontroler.obrisiVaspitaca(this);
+        }
     }
 }
 

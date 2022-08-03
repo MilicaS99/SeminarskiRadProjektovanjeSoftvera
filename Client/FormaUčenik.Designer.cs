@@ -31,6 +31,7 @@ namespace Client
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,7 +45,6 @@ namespace Client
             this.btnSacuvajUcenika = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtPretraga = new System.Windows.Forms.TextBox();
-            this.btnPretrazi = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.DodavanjeUčenika = new System.Windows.Forms.GroupBox();
             this.btnPrikaziDetalje = new System.Windows.Forms.Button();
@@ -116,46 +116,71 @@ namespace Client
             // 
             this.txtIme.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtIme.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.txtIme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIme.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtIme.Location = new System.Drawing.Point(209, 13);
             this.txtIme.Name = "txtIme";
             this.txtIme.Size = new System.Drawing.Size(178, 20);
             this.txtIme.TabIndex = 5;
+            this.txtIme.Text = "Ime";
+            this.txtIme.Enter += new System.EventHandler(this.txtIme_Enter);
+            this.txtIme.Leave += new System.EventHandler(this.txtIme_Leave);
             // 
             // txtPrezime
             // 
             this.txtPrezime.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPrezime.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.txtPrezime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrezime.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtPrezime.Location = new System.Drawing.Point(209, 53);
             this.txtPrezime.Name = "txtPrezime";
             this.txtPrezime.Size = new System.Drawing.Size(178, 20);
             this.txtPrezime.TabIndex = 6;
+            this.txtPrezime.Text = "Prezime";
+            this.txtPrezime.Enter += new System.EventHandler(this.txtPrezime_Enter);
+            this.txtPrezime.Leave += new System.EventHandler(this.txtPrezime_Leave);
             // 
             // txtDatumRodjenja
             // 
             this.txtDatumRodjenja.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDatumRodjenja.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.txtDatumRodjenja.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDatumRodjenja.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtDatumRodjenja.Location = new System.Drawing.Point(209, 101);
             this.txtDatumRodjenja.Name = "txtDatumRodjenja";
             this.txtDatumRodjenja.Size = new System.Drawing.Size(178, 20);
             this.txtDatumRodjenja.TabIndex = 7;
+            this.txtDatumRodjenja.Text = "dd.MM.yyyy. HH:mm";
+            this.txtDatumRodjenja.Enter += new System.EventHandler(this.txtDatumRodjenja_Enter);
+            this.txtDatumRodjenja.Leave += new System.EventHandler(this.txtDatumRodjenja_Leave);
             // 
             // txtPol
             // 
             this.txtPol.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPol.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.txtPol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPol.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtPol.Location = new System.Drawing.Point(209, 145);
             this.txtPol.Name = "txtPol";
             this.txtPol.Size = new System.Drawing.Size(178, 20);
             this.txtPol.TabIndex = 8;
+            this.txtPol.Text = "Pol";
+            this.txtPol.Enter += new System.EventHandler(this.txtPol_Enter);
+            this.txtPol.Leave += new System.EventHandler(this.txtPol_Leave);
             // 
             // txtKontaktRoditelja
             // 
             this.txtKontaktRoditelja.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtKontaktRoditelja.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.txtKontaktRoditelja.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKontaktRoditelja.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtKontaktRoditelja.Location = new System.Drawing.Point(209, 193);
             this.txtKontaktRoditelja.Name = "txtKontaktRoditelja";
             this.txtKontaktRoditelja.Size = new System.Drawing.Size(178, 20);
             this.txtKontaktRoditelja.TabIndex = 9;
+            this.txtKontaktRoditelja.Text = "KontaktRoditelja";
+            this.txtKontaktRoditelja.Enter += new System.EventHandler(this.txtKontaktRoditelja_Enter);
+            this.txtKontaktRoditelja.Leave += new System.EventHandler(this.txtKontaktRoditelja_Leave);
             // 
             // btnSacuvajUcenika
             // 
@@ -186,31 +211,31 @@ namespace Client
             // 
             this.txtPretraga.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPretraga.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.txtPretraga.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPretraga.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtPretraga.Location = new System.Drawing.Point(768, 36);
             this.txtPretraga.Name = "txtPretraga";
             this.txtPretraga.Size = new System.Drawing.Size(147, 20);
             this.txtPretraga.TabIndex = 12;
-            // 
-            // btnPretrazi
-            // 
-            this.btnPretrazi.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnPretrazi.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnPretrazi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPretrazi.Location = new System.Drawing.Point(937, 29);
-            this.btnPretrazi.Name = "btnPretrazi";
-            this.btnPretrazi.Size = new System.Drawing.Size(108, 33);
-            this.btnPretrazi.TabIndex = 13;
-            this.btnPretrazi.Text = "Pretraži";
-            this.btnPretrazi.UseVisualStyleBackColor = false;
-            this.btnPretrazi.Click += new System.EventHandler(this.btnPretrazi_Click);
+            this.txtPretraga.Text = "Ime ucenika";
+            this.txtPretraga.Click += new System.EventHandler(this.txtPretraga_Click);
+            this.txtPretraga.TextChanged += new System.EventHandler(this.txtPretraga_TextChanged);
             // 
             // dataGridView1
             // 
             this.dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(621, 92);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(546, 139);
+            this.dataGridView1.Size = new System.Drawing.Size(562, 139);
             this.dataGridView1.TabIndex = 14;
             // 
             // DodavanjeUčenika
@@ -239,7 +264,7 @@ namespace Client
             this.btnPrikaziDetalje.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnPrikaziDetalje.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnPrikaziDetalje.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrikaziDetalje.Location = new System.Drawing.Point(1059, 29);
+            this.btnPrikaziDetalje.Location = new System.Drawing.Point(1003, 29);
             this.btnPrikaziDetalje.Name = "btnPrikaziDetalje";
             this.btnPrikaziDetalje.Size = new System.Drawing.Size(108, 33);
             this.btnPrikaziDetalje.TabIndex = 16;
@@ -256,7 +281,6 @@ namespace Client
             this.Controls.Add(this.btnPrikaziDetalje);
             this.Controls.Add(this.DodavanjeUčenika);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.btnPretrazi);
             this.Controls.Add(this.txtPretraga);
             this.Controls.Add(this.label6);
             this.Name = "FormaUčenik";
@@ -284,7 +308,6 @@ namespace Client
         private System.Windows.Forms.Button btnSacuvajUcenika;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtPretraga;
-        private System.Windows.Forms.Button btnPretrazi;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox DodavanjeUčenika;
         private Button btnPrikaziDetalje;
@@ -302,7 +325,7 @@ namespace Client
         public Button BtnSacuvajUcenika { get => btnSacuvajUcenika; set => btnSacuvajUcenika = value; }
         public Label Label6 { get => label6; set => label6 = value; }
         public TextBox TxtPretraga { get => txtPretraga; set => txtPretraga = value; }
-        public Button BtnPretrazi { get => btnPretrazi; set => btnPretrazi = value; }
+   
         public DataGridView DataGridView1 { get => dataGridView1; set => dataGridView1 = value; }
         public GroupBox DodavanjeUčenika1 { get => DodavanjeUčenika; set => DodavanjeUčenika = value; }
     }
